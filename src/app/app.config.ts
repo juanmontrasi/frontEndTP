@@ -2,10 +2,11 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
+import { addTokenInterceptor } from './utils/add-token.interceptor.js';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +19,6 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
     }),
+    provideHttpClient(withInterceptors([addTokenInterceptor])),
   ]
 };

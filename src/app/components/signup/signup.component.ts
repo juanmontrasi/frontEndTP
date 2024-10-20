@@ -4,12 +4,15 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from '../../interfaces/user.js';
 import { UserService } from '../../services/user.service.js';
 import { Router } from '@angular/router';
+import { SpinnerComponent } from "../../shared/spinner/spinner.component";
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, SpinnerComponent, CommonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -24,6 +27,9 @@ export class SignupComponent {
   name: string = '';
   lastName: string = '';
   address: string = '';
+
+  loading: boolean = false;
+
 
   addUser() {
     if (this.userName == '' || this.password == '' || this.email == '' || this.phone == '' || this.name == '' || this.lastName == '' || this.address == '') {
@@ -50,14 +56,18 @@ export class SignupComponent {
     }
 
     console.log(user);
-
-    this._userService.signIn(user).subscribe(data => {
-      this.toastr.success(`El usuario ${this.userName} fue registrado con exito`, 'Usuario registrado');
-      this.router.navigate(['/login']);
-    })
-
-
-
+    this.loading = true;
+    this._userService.signUp(user).subscribe({
+      next: (v) => {
+        this.loading = false;
+        this.toastr.success(`El usuario ${this.userName} fue registrado con exito`, 'Usuario registrado');
+        this.router.navigate(['/login']);
+      },
+      error: (event: HttpErrorResponse) => {
+        this.loading = false;
+        this._userService.msjError(event);
+      }
+    });
   }
 
 

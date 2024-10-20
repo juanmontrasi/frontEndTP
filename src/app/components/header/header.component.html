@@ -25,7 +25,12 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/login" href="/login">Ingresar </a>
+          <a class="nav-link active" aria-current="page" *ngIf="!userService.isAuthenticated()" routerLink="/login"
+            href="/login">Ingresar </a>
+          <a class="nav-link active" aria-current="page" *ngIf="userService.isAuthenticated()" (click)="onLogout()"
+            routerLink="/" href="/">Salir </a>
+          <!-- <button *ngIf="!userService.isAuthenticated()" (click)="onNavigateToLogin()">Ingresar</button>
+          <button *ngIf="userService.isAuthenticated()" (click)="onLogout()">Logout</button> -->
         </li>
       </ul>
     </div>
