@@ -1,37 +1,40 @@
-<div class="row g-3">
-  <div class="col-8">
-    <h2>Registro</h2>
+<div class="container">
+  <div class="row g-3" *ngIf="!loading">
+    <div class="col-8">
+      <h2>Registrarse</h2>
+    </div>
+    <div class="col-md-6">
+      <label for="inputUsuario" name="userName" class="form-label">Nombre de
+        usuario</label>
+      <input type="text" class="form-control" [(ngModel)]="userName">
+    </div>
+    <div class="col-md-6">
+      <label for="inputPassword4" class="form-label">Contraseña</label>
+      <input type="password" class="form-control" [(ngModel)]="password">
+    </div>
+    <div class="col-12">
+      <label for="inputEmail" class="form-label">Email</label>
+      <input type="text" class="form-control" [(ngModel)]="email">
+    </div>
+    <div class="col-12">
+      <label for="inputTelefono" class="form-label">Telefono</label>
+      <input type="text" class="form-control" [(ngModel)]="phone">
+    </div>
+    <div class="col-md-6">
+      <label for="inputNombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" [(ngModel)]="name">
+    </div>
+    <div class="col-md-6">
+      <label for="inputApellido" class="form-label">Apellido</label>
+      <input type="text" class="form-control" [(ngModel)]="lastName">
+    </div>
+    <div class="col-12">
+      <label for="inputDireccion" class="form-label">Dirección</label>
+      <input type="text" class="form-control" [(ngModel)]="address">
+    </div>
+    <div class="col-12">
+      <button type="submit" (click)="addUser()" class="btn btn-primary">Registrarse</button>
+    </div>
   </div>
-  <div class="col-md-6">
-    <label for="inputUsuario" name="userName" class="form-label">Nombre de
-      usuario</label>
-    <input type="text" class="form-control" [(ngModel)]="userName">
-  </div>
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Contraseña</label>
-    <input type="password" class="form-control" [(ngModel)]="password">
-  </div>
-  <div class="col-12">
-    <label for="inputEmail" class="form-label">Email</label>
-    <input type="text" class="form-control" [(ngModel)]="email">
-  </div>
-  <div class="col-12">
-    <label for="inputTelefono" class="form-label">Telefono</label>
-    <input type="text" class="form-control" [(ngModel)]="phone">
-  </div>
-  <div class="col-md-6">
-    <label for="inputNombre" class="form-label">Nombre</label>
-    <input type="text" class="form-control" [(ngModel)]="name">
-  </div>
-  <div class="col-md-6">
-    <label for="inputApellido" class="form-label">Apellido</label>
-    <input type="text" class="form-control" [(ngModel)]="lastName">
-  </div>
-  <div class="col-12">
-    <label for="inputDireccion" class="form-label">Dirección</label>
-    <input type="text" class="form-control" [(ngModel)]="address">
-  </div>
-  <div class="col-12">
-    <button type="submit" (click)="addUser()" class="btn btn-primary">Registrarse</button>
-  </div>
+  <app-spinner *ngIf="loading"></app-spinner>
 </div>
