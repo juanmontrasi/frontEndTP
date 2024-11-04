@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SpinnerComponent } from "../../shared/spinner/spinner.component";
+import { ProductsService } from '../../services/products.service.js';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ import { SpinnerComponent } from "../../shared/spinner/spinner.component";
 })
 export class LoginComponent {
 
-  constructor(private toastr: ToastrService, private _userService: UserService, private router: Router) { }
+  constructor(private toastr: ToastrService, private _userService: UserService, private router: Router, private _productsService: ProductsService) { }
 
   userName: string = '';
   password: string = '';
@@ -40,17 +41,15 @@ export class LoginComponent {
       apellido: '',
       direccion: ''
     }
-    this.loading = true;
     this._userService.logIn(user).subscribe({
-      next: (token) => {
-        this.loading = false;
-        localStorage.setItem("token", token);
-        this.router.navigate(['/']);
-        console.log(token);
+      next: () => {
+        if (localStorage.getItem('token') != null) {
+
+          this.router.navigate(['/']);
+        }
       },
       error: (error: HttpErrorResponse) => {
-        this.loading = false;
-        this._userService.msjError(error);
+        this.toastr.error('Usuario o contraseña incorrectos', 'Error!');
       }
     });
 
