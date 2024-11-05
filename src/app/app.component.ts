@@ -7,6 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { NewEditServicesComponent } from './components/new-edit-services/new-edit-services.component.js';
+import { NewEditProductsComponent } from "./components/new-edit-products/new-edit-products.component";
 
 
 @Component({
@@ -20,8 +21,9 @@ import { NewEditServicesComponent } from './components/new-edit-services/new-edi
     SignupComponent,
     LoginComponent,
     FormsModule,
-    NewEditServicesComponent
-  ],
+    NewEditServicesComponent,
+    NewEditProductsComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

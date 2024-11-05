@@ -7,6 +7,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
 import { addTokenInterceptor } from './utils/add-token.interceptor.js';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +20,6 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
     }),
-    provideHttpClient(withInterceptors([addTokenInterceptor])),
+    provideHttpClient(withInterceptors([addTokenInterceptor])), provideAnimationsAsync(),
   ]
 };

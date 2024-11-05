@@ -9,11 +9,17 @@ import { NewEditUsersComponent } from './components/new-edit-users/new-edit-user
 import { AuthService } from './services/auth.service.js';
 import { ProdClientComponent } from './components/prod-client/prod-client.component.js';
 import { CartComponent } from './components/cart/cart.component.js';
+import { ProductsComponent } from './components/products/products.component.js';
+import { NewEditProductsComponent } from './components/new-edit-products/new-edit-products.component.js';
+
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, },
   { path: 'signup', component: SignupComponent },
   { path: 'services', component: ServicesComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'newProduct', component: NewEditProductsComponent },
+  { path: 'editProduct/:id', component: NewEditProductsComponent },
   // { path: 'newService', component: NewEditServicesComponent },
   { path: 'users', component: UsersComponent, canActivate: [AuthService] },
   { path: 'newUser', component: NewEditUsersComponent, canActivate: [AuthService] },
