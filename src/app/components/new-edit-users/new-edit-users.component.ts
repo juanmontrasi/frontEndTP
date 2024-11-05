@@ -27,7 +27,7 @@ export class NewEditUsersComponent implements OnInit {
     this.formUser = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
-      email: ['', Validators.email],
+      email: ['', Validators.required],
       tipo_usuario: 1,
       name: ['', Validators.required],
       lastName: ['', Validators.required],

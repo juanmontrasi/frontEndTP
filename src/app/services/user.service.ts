@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { number } from 'mathjs';
+import { OrdersService } from './orders.service.js';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,15 @@ export class UserService {
   private myAppUrl: string;
   private myApiUrl: string;
   private isLoggedIn = false;
+  private usarWithToken?: User;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+
+
+
+  constructor(private http: HttpClient, private toastr: ToastrService, private _orderService: OrdersService) {
     this.myAppUrl = 'http://localhost:1234/';
     this.myApiUrl = 'users';
+
   }
 
   getUsers(): Observable<User[]> {
@@ -41,20 +48,27 @@ export class UserService {
     return this.http.post(this.myAppUrl + this.myApiUrl, user)
   }
 
-  logIn(user: User): Observable<string> {
-    return this.http.post<string>(this.myAppUrl + 'login', user).pipe(
-      tap((token: string) => {
-        // Almacenar token en localStorage y cambiar el estado de autenticación
-        localStorage.setItem('token', token);
+  logIn(user: User): Observable<any> {
+    return this.http.post<any>(this.myAppUrl + 'login', user).pipe(
+      tap((response: any) => {
+        // Almacenar token en localStorage y el tipo de usuario y cambiar el estado de autenticación
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('tipo_usuario', response.user.tipo_usuario);
+        this._orderService.createOrder(response.user.id_usuario);
         this.isLoggedIn = true;
       }),
       catchError(this.handleError<string>('login', ''))
     );
   }
 
+  isAdmin(): boolean {
+    return localStorage.getItem('tipo_usuario') === '1';
+  }
+
   logOut(): void {
     // Limpiar el token y el estado de autenticación
     localStorage.removeItem('token');
+    localStorage.removeItem('tipo_usuario');
     this.isLoggedIn = false;
   }
 
