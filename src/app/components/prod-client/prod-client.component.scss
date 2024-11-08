@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+.container-fluid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .container-cards {
   display: flex;
   flex-wrap: wrap;

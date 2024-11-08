@@ -5,16 +5,16 @@
         <h1>Productos</h1>
       </div>
     </div>
-    <nav class="navbar">
-      <div class="container-fluid">
-        <input class="form-control me-2" placeholder="Search" aria-label="Busqueda"
-          [(ngModel)]="searchInput.nombre_producto" placeholder="Busqueda">
-      </div>
-    </nav>
+    <form class="d-flex" role="search" [formGroup]="formSearch" (ngSubmit)="getProdByName()">
+      <input class="form-control me-2" placeholder="Buscar" aria-label="Search" formControlName="productName">
+      <button class="btn btn-primary" type="submit">Buscar</button>
+      <button class="btn btn-outline-secondary" type="button" style="margin-left: 9px;"
+        (click)="getProducts()">Limpiar</button>
+    </form>
   </div>
 
   <div class="container-cards">
-    <div class="card" style="width: 18rem;" *ngFor="let product of listProd | filterBy: searchInput">
+    <div class="card" style="width: 18rem;" *ngFor="let product of listProd">
       <img [src]="'assets/products/' + product.imagen" class="card-img-top" [alt]="'assets/products/' + product.imagen">
       <div class="card-body">
         <h5 class="card-title">{{ product.nombre_producto }}</h5>
