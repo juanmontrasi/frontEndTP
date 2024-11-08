@@ -54,7 +54,6 @@ export class UserService {
         // Almacenar token en localStorage y el tipo de usuario y cambiar el estado de autenticación
         localStorage.setItem('token', response.token);
         localStorage.setItem('tipo_usuario', response.user.tipo_usuario);
-        this._orderService.createOrder(response.user.id_usuario);
         this.isLoggedIn = true;
       }),
       catchError(this.handleError<string>('login', ''))

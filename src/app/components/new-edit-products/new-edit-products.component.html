@@ -23,13 +23,17 @@
     </div>
     <div class="col-12">
       <label for="inputPrecio" class="form-label">Precio</label>
-      <input type="number" formControlName="price" class="form-control" >
+      <input type="number" formControlName="price" class="form-control">
     </div>
-  <div class="col-12">
-    <label for="inputStock" class="form-label">Stock</label>
-    <input type="number" formControlName="quant" class="form-control" >
-  </div>
-  
+    <div class="col-12">
+      <label for="inputStock" class="form-label">Stock</label>
+      <input type="number" formControlName="quant" class="form-control">
+    </div>
+    <div class="col-12">
+      <label for="inputImagen" class="form-label">Imagen</label>
+      <input type="text" formControlName="image" class="form-control">
+    </div>
+
     <div class="col-12">
       <button type="submit" [disabled]="formProduct.invalid" class="btn btn-primary">{{operacion}}</button>
 

@@ -15,11 +15,16 @@ export class ProductService {
   constructor(private http: HttpClient, private toastr: ToastrService) {
     this.myAppUrl = 'http://localhost:1234/';
     this.myApiUrl = 'products';
+
   }
 
   createProduct(product: Product): Observable<any> {
     console.log("hola")
     return this.http.post(this.myAppUrl + this.myApiUrl, product)
+  }
+
+  getProductsByName(nombre: string): Observable<Product[]> {
+    return this.http.get<Product[]>(this.myAppUrl + this.myApiUrl + `/search?nombre_producto=${nombre}`)
   }
 
   getProducts(): Observable<Product[]> {

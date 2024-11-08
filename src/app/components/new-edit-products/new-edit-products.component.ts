@@ -29,7 +29,7 @@ export class NewEditProductsComponent implements OnInit {
       description: ['', Validators.required],
       quant: [0, [Validators.required, Validators.min(0)]],
       price: [0, [Validators.required, Validators.min(0)]],
-      // image: ['', Validators.required]
+      image: ['', Validators.required]
     });
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
     console.log(aRouter.snapshot.paramMap.get('id'));
@@ -50,7 +50,7 @@ export class NewEditProductsComponent implements OnInit {
   description: string = '';
   quant: number | undefined;
   price: number | undefined;
-  image: string ='';
+  image: string = '';
 
 
   getProduct(id: number) {
