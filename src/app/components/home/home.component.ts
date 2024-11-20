@@ -26,7 +26,6 @@ export class HomeComponent {
   getProducts() {
     this._productService.getProducts().subscribe(products => {
 
-      console.log(products.length);
       this.listProd = products;
       if (this.listProd.length >= 3) {
         this.listProd = this.listProd.slice(0, 3);

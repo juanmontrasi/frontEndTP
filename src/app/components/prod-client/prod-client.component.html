@@ -20,7 +20,8 @@
         <h5 class="card-title">{{ product.nombre_producto }}</h5>
         <p class="card-text">{{ product.desc_producto }}</p>
         <p class="card-text"><strong>Precio:</strong> {{ product.precio | currency:'USD' }}</p>
-        <a (click)="addProdToCart(product)" class="btn btn-primary">Agregar al Carrito</a>
+        <a (click)="addProdToCart(product)" class="btn btn-primary" *ngIf="product.stock > 10  ">Agregar al Carrito</a>
+        <a class="btn btn-danger" *ngIf="product.stock  <= 10 ">Sin Stock</a>
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service.js';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
@@ -17,12 +18,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class UsersComponent implements OnInit {
 
   listUsers: any[] = [];
-
-  // paginacion
   p: number = 1;
   collection: any[] = this.listUsers;
-
-  // filtro
   searchInput = { nombre_usuario: '', email: '', telefono: '', direccion: '', nombre: '', apellido: '' };
 
   constructor(private router: Router, private _userService: UserService, private toastr: ToastrService) { }
@@ -38,14 +35,17 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    this._userService.deleteUser(id).subscribe(() => {
-      this.getUsers();
-      this.toastr.warning('User deleted successfully', 'User deleted');
+    this._userService.deleteUser(id).subscribe({
+      next: () => {
+        this.getUsers();
+        this.toastr.warning('User deleted successfully', 'User deleted');
+      },
+      error: (err: HttpErrorResponse) => {
+        this.toastr.error('El usuario tiene pedidos asociados', 'Error!');
+
+      }
     });
   }
-
-
-
-
 }
+
 

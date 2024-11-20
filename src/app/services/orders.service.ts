@@ -1,14 +1,16 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenType } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { Order } from '../interfaces/order.js';
+import { User } from '../interfaces/user.js';
+import { UserService } from './user.service.js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-
-  private listProdCart: any[] = [];
   private myAppUrl: string;
   private myApiUrl: string;
 
@@ -18,18 +20,20 @@ export class OrdersService {
 
   }
 
-  createOrder(id: number) {
+  createOrder(id: number, total: number): Observable<any> {
     const order = {
       fecha_pedido: new Date(),
-      total: 0,
+      total: total,
       id_cliente: id
     }
-
-    return this.http.post(this.myAppUrl + this.myApiUrl, order);
+    const token = sessionStorage.getItem('token');
+    console.log(token)
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.myAppUrl + this.myApiUrl, order, { headers });
   }
 
-  getOrders() {
-    return this.http.get(this.myAppUrl + this.myApiUrl);
+  getOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.myAppUrl + this.myApiUrl);
   }
 }
 

@@ -9,10 +9,9 @@ export class AuthService {
   constructor(private _userService: UserService, private router: Router) { }
 
   canActivate(): boolean {
-    const token = localStorage.getItem('token');
-    const tipo_usuario = localStorage.getItem('tipo_usuario');
+    const token = sessionStorage.getItem('token');
 
-    if (token != null && tipo_usuario === '1') {
+    if (token != null && this._userService.isAdmin()) {
       return true;
     }
     this.router.navigate(['/']);
