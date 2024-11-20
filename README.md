@@ -76,6 +76,6 @@ Regularidad:
 |Req|Detalle|
 |:-|:-|
 |CRUD simple|1. CRUD Producto<br>2. CRUD Usuario<br>
-|CRUD dependiente|1. CRUD Pedido {depende de} CRUD Producto<br>
+|CRUD dependiente|1. CRUD Pedido {depende de} CRUD Producto / {depende de} CRUD Usuario<br>
 |Listado<br>+<br>detalle| 1. Listado productos para clientes <br>
 |CUU/Epic|1.Crear una cuenta como cliente <br>2. Realizar una compra cliente|
