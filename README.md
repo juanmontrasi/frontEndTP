@@ -1,6 +1,6 @@
 # TP-DSW
 Trabajo practico para la materia Desarrollo de software en la comisión 3K02.
-La aplicacion fue realizada utilizando [Angular](https://v18.angular.dev/installation) como framework del Frontend y [Node.Js](https://nodejs.org/en/) junto con el ORM [Sequelize](https://sequelize.org/) para el Backend
+La aplicacion fue realizada con [Angular](https://v18.angular.dev/installation) como framework del Frontend y [Node.Js](https://nodejs.org/en/) junto con [MySql](https://www.mysql.com/) para el Backend. Ademas, utiliza el ORM [Sequelize](https://sequelize.org/) para el manejo de consultas a la base de datos.
 # Propuesta TP DSW
 
 ## Grupo
