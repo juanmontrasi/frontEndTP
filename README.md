@@ -5,7 +5,7 @@ Trabajo practico para la materia Desarrollo de software en la comisión 3K02
 ## Grupo
 ### Integrantes
 * 49797 - Montrasi Juan Ignacio 
-* 49416 - Achamas Agustina
+* 49416 - Chamas Agustina
 
 ### Repositorios
 * [frontend app] https://github.com/juanmontrasi/frontEndTP.git
