@@ -1,32 +1,79 @@
-# FrontEndTP
+# TP-DSW-ECOMMERCE
+Trabajo practico para la materia Desarrollo de software en la comisión 3K02
+# Propuesta TP DSW
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+## Grupo
+### Integrantes
+* 49797 - Montrasi Juan Ignacio 
+* 49416 - Achamas Agustina
 
-## Development server
+### Repositorios
+* [frontend app] https://github.com/juanmontrasi/frontEndTP.git
+* [backend app] https://github.com/juanmontrasi/backEndTP.git
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Requisitos Previos
 
-## Code scaffolding
+Asegúrate de tener instalados los siguientes programas en tu sistema:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    Node.js (versión 14 o superior)
+    Angular CLI (versión 12 o superior)
+    MySQL (para la base de datos)
 
-## Build
+### Instrucciones de instalación
+# 1. Clonar ambos repositorios:
+```
+git clone https://github.com/juanmontrasi/frontEndTP.git
+git clone https://github.com/juanmontrasi/backEndTP.git
+```
+# 2. Configurar el BackEnd:
+- Ingresa al directorio
+  ```
+  cd backendtp
+  ```
+- Instala las dependencias
+  ```
+  npm install
+  ```
+- Configura la base de datos. Actualiza los datos en el archivo `.env`
+  ```
+  USERNAME=*tu usuario*
+  PASSWORD=*tu contraseña*
+  ```
+- Creación de la base de datos
+  Ejecutar el schema en MySQL Workbench: 
+  Ejecuta el siguiente script con datos pre cargados: 
+- Inicia el BackEnd
+  ```
+  npm run dev
+  ```
+# 3. Configurar el FrontEnd:
+- Ingresa al directorio
+  ```
+  cd frontendtp
+  ```
+- Instala las dependencias
+  ```
+  npm install
+  ```
+- Inicia la aplicacion
+  ```
+  ng serve
+  ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Tema
+DescripciónEste proyecto tiene como objetivo desarrollar una tienda en línea especializada en componentes de computadora, con funcionalidades como un carrito de compras y un sistema de búsqueda avanzada que permite aplicar múltiples filtros. Además, incluirá una sección de administración para gestionar eficientemente usuarios, productos y pedidos. Por último, se implementará un sistema de inicio de sesión (LogIn) que diferenciará entre dos tipos de usuarios: clientes y administradores, garantizando un manejo adecuado de permisos y accesos.
 
 
-## Diseño podriamos hacer algo de esta onda
+### Modelo
+Modelo de dominio inicial
+https://drive.google.com/file/d/1pjqIB0xBDmt9TUcnxpfwAKTRw3L7BDt-/view?usp=sharing
 
-https://www.canva.com/design/DAGVbl9zBqo/2XEni2bBWXqaNKFyCccUvw/edit?utm_content=DAGVbl9zBqo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+### Alcance Mínimo
+
+Regularidad:
+|Req|Detalle|
+|:-|:-|
+|CRUD simple|1. CRUD Producto<br>2. CRUD Usuario<br>
+|CRUD dependiente|1. CRUD Pedido {depende de} CRUD Producto<br>
+|Listado<br>+<br>detalle| 1. Listado productos para clientes <br>
+|CUU/Epic|1.Crear una cuenta como cliente <br>2. Realizar una compra cliente|
