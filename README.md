@@ -1,4 +1,4 @@
-# TP-DSW-ECOMMERCE
+# TP-DSW
 Trabajo practico para la materia Desarrollo de software en la comisión 3K02
 # Propuesta TP DSW
 
@@ -36,12 +36,11 @@ git clone https://github.com/juanmontrasi/backEndTP.git
   ```
 - Configura la base de datos. Actualiza los datos en el archivo `.env`
   ```
-  USERNAME=*tu usuario*
   PASSWORD=*tu contraseña*
   ```
 - Creación de la base de datos
-  Ejecutar el schema en MySQL Workbench: 
-  Ejecuta el siguiente script con datos pre cargados: 
+  Ejecutar el schema en MySQL Workbench: [Base de datos](https://github.com/juanmontrasi/backEndTP/blob/master/tp_desarrollo%20(1).sql)
+  > Estan precargados una serie de productos y un usuario administrador (nombre_usuario = admin, clave = admin)
 - Inicia el BackEnd
   ```
   npm run dev
