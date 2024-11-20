@@ -7,6 +7,9 @@ Trabajo practico para la materia Desarrollo de software en la comisión 3K02
 * 49797 - Montrasi Juan Ignacio 
 * 49416 - Chamas Agustina
 
+### Demostración 
+Link al video de demostración: [Demo](https://youtu.be/jz3Dch4fbfU)
+
 ### Repositorios
 * [frontend app] https://github.com/juanmontrasi/frontEndTP.git
 * [backend app] https://github.com/juanmontrasi/backEndTP.git
