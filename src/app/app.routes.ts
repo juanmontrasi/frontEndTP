@@ -11,6 +11,7 @@ import { ProdClientComponent } from './components/prod-client/prod-client.compon
 import { CartComponent } from './components/cart/cart.component.js';
 import { ProductsComponent } from './components/products/products.component.js';
 import { NewEditProductsComponent } from './components/new-edit-products/new-edit-products.component.js';
+import { OrdersComponent } from './components/orders/orders.component.js';
 
 
 export const routes: Routes = [
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'users', component: UsersComponent, canActivate: [AuthService] },
   { path: 'newUser', component: NewEditUsersComponent, canActivate: [AuthService] },
   { path: 'editUser/:id', component: NewEditUsersComponent, canActivate: [AuthService] },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthService] },
   { path: 'prodClients', component: ProdClientComponent },
   { path: 'cart', component: CartComponent },
   { path: '**', component: HomeComponent }

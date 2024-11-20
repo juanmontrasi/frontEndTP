@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../environments/environment.js';
 import { User } from '../interfaces/user';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { number } from 'mathjs';
 import { OrdersService } from './orders.service.js';
+import { jwtDecode } from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,8 @@ export class UserService {
   private myApiUrl: string;
   private isLoggedIn = false;
   private usarWithToken?: User;
-
+  private tipoUsuario: string | null = null;
+  private idUsuario: number | null = null;
 
 
 
@@ -51,44 +51,61 @@ export class UserService {
   logIn(user: User): Observable<any> {
     return this.http.post<any>(this.myAppUrl + 'login', user).pipe(
       tap((response: any) => {
-        // Almacenar token en localStorage y el tipo de usuario y cambiar el estado de autenticación
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('tipo_usuario', response.user.tipo_usuario);
+        sessionStorage.setItem('token', response.token);
+
+        const decoded: any = jwtDecode(response.token);
+        this.tipoUsuario = decoded.tipo_usuario;
+        this.idUsuario = decoded.id_usuarios;
+
         this.isLoggedIn = true;
-      }),
-      catchError(this.handleError<string>('login', ''))
+      })
     );
   }
 
+  getUserId(): number {
+    if (this.idUsuario !== null) {
+      return this.idUsuario;
+    } else {
+      const token = sessionStorage.getItem('token');
+      if (token) {
+        const decoded: any = jwtDecode(token);
+        return decoded.id_usuarios;
+      }
+      return 0;
+    }
+  }
+
+
   isAdmin(): boolean {
-    return localStorage.getItem('tipo_usuario') === '1';
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      const tipoUsuario = decoded.tipo_usuario;
+      if (tipoUsuario === 1) {
+        return true;
+      };
+    }
+    return false;
   }
 
   logOut(): void {
-    // Limpiar el token y el estado de autenticación
-    localStorage.removeItem('token');
-    localStorage.removeItem('tipo_usuario');
+    sessionStorage.removeItem('token');
+    localStorage.removeItem('cart');
     this.isLoggedIn = false;
+    this.tipoUsuario = null;
+    this.idUsuario = null;
   }
 
   isAuthenticated(): boolean {
-    // Verificar si el token existe en localStorage
-    return !!localStorage.getItem('token');
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error); // Loguea el error
-      this.toastr.error('Error en la operación', 'Error!');
-      return of(result as T); // Devolver un valor seguro
-    };
+    return !!sessionStorage.getItem('token');
   }
 
   msjError(event: HttpErrorResponse) {
     if (event.error.msg) {
       this.toastr.error(event.error.msg, 'Error!');
     } else {
-      this.toastr.error('Error en el ingreso de datos', 'Error!');
+      this.toastr.error('El nombre de usuario o el mail ya existen', 'Error!');
     }
   }
 }
+

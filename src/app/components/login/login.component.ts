@@ -43,13 +43,14 @@ export class LoginComponent {
     }
     this._userService.logIn(user).subscribe({
       next: () => {
-        if (localStorage.getItem('token') != null) {
-
+        if (sessionStorage.getItem('token') != null) {
+          this.toastr.success('Bienvenido', 'Login exitoso');
           this.router.navigate(['/']);
         }
       },
       error: (error: HttpErrorResponse) => {
         this.toastr.error('Usuario o contraseña incorrectos', 'Error!');
+        this.router.navigate(['/login']);
       }
     });
 

@@ -4,6 +4,12 @@
     <button type="submit" class="btn btn-primary" routerLink="/newProduct">Agregar
       Producto</button>
   </div>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <input class="form-control me-2" placeholder="Search" aria-label="Busqueda"
+        [(ngModel)]="searchInput.nombre_producto" placeholder="Busqueda">
+    </div>
+  </nav>
   <table *ngIf="listProducts.length > 0" class="table table-hover">
     <thead>
       <tr>
@@ -17,12 +23,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of listProducts">
+      <tr *ngFor="let product of listProducts | filterBy: searchInput | paginate: { itemsPerPage: 5, currentPage: p }">
         <td>{{product.id_productos}}</td>
         <td>{{product.nombre_producto}}</td>
         <td>{{product.desc_producto}}</td>
         <td>{{product.stock}}</td>
-        <td>{{product.precio}}</td>
+        <td>{{product.precio | currency:'USD'}}</td>
         <td>{{product.imagen}}</td>
         <td>
           <button type="submit" class="btn btn-info" routerLink="/editProduct/{{product.id_productos}}">Editar</button>
@@ -32,6 +38,7 @@
       </tr>
     </tbody>
   </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
   <h5 *ngIf="listProducts.length == 0">
     No hay Productos en el sistema
   </h5>

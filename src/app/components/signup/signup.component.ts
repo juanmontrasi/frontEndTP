@@ -54,8 +54,6 @@ export class SignupComponent {
       apellido: this.lastName,
       direccion: this.address
     }
-
-    console.log(user);
     this.loading = true;
     this._userService.signUp(user).subscribe({
       next: (v) => {

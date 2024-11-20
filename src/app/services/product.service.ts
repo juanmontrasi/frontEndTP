@@ -19,7 +19,6 @@ export class ProductService {
   }
 
   createProduct(product: Product): Observable<any> {
-    console.log("hola")
     return this.http.post(this.myAppUrl + this.myApiUrl, product)
   }
 
@@ -42,6 +41,8 @@ export class ProductService {
   updateProduct(id: number, product: Product): Observable<void> {
     return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, product)
   }
+
+
 
   // isAuthenticated(): boolean {
   //   // Verificar si el token existe en localStorage
