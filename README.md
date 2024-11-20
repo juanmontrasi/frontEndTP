@@ -64,8 +64,9 @@ DescripciónEste proyecto tiene como objetivo desarrollar una tienda en línea e
 
 
 ### Modelo
-Modelo de dominio inicial
-https://drive.google.com/file/d/1pjqIB0xBDmt9TUcnxpfwAKTRw3L7BDt-/view?usp=sharing
+Modelo de datos
+![imagen](https://github.com/user-attachments/assets/3be678ab-701d-4c72-a66c-951bd545b3d2)
+
 
 ### Alcance Mínimo
 
