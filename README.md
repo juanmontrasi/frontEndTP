@@ -65,7 +65,9 @@ DescripciónEste proyecto tiene como objetivo desarrollar una tienda en línea e
 
 ### Modelo
 Modelo de datos
-![imagen](https://github.com/user-attachments/assets/3be678ab-701d-4c72-a66c-951bd545b3d2)
+
+![imagen](https://github.com/user-attachments/assets/969c6836-8291-4647-bb10-925d4e65e874)
+
 
 
 ### Alcance Mínimo
