@@ -1,7 +1,7 @@
 # TP-DSW
 Trabajo practico para la materia Desarrollo de software en la comisión 3K02.
 
-La aplicacion fue realizada con [Angular](https://v18.angular.dev/installation) como framework del Frontend y [Node.Js](https://nodejs.org/en/) junto con [MySql](https://www.mysql.com/) para el Backend. Ademas, utiliza el ORM [Sequelize](https://sequelize.org/) para el manejo de consultas a la base de datos.
+La aplicacion fue realizada con [Angular V18](https://v18.angular.dev/installation) como framework del Frontend y [Node.Js V20](https://nodejs.org/en/) junto con [MySql](https://www.mysql.com/) para el Backend. Ademas, utiliza el ORM [Sequelize](https://sequelize.org/) para el manejo de consultas a la base de datos.
 # Propuesta TP DSW
 
 ## Grupo
@@ -15,14 +15,6 @@ Link al video de demostración: [Demo](https://youtu.be/jz3Dch4fbfU)
 ### Repositorios
 * [frontend app] https://github.com/juanmontrasi/frontEndTP.git
 * [backend app] https://github.com/juanmontrasi/backEndTP.git
-
-### Requisitos Previos
-
-Asegúrate de tener instalados los siguientes programas en tu sistema:
-
-    Node.js (versión 14 o superior)
-    Angular CLI (versión 12 o superior)
-    MySQL (para la base de datos)
 
 ### Instrucciones de instalación
 # 1. Clonar ambos repositorios:
