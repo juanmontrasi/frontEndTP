@@ -13,8 +13,8 @@ La aplicacion fue realizada con [Angular V18](https://v18.angular.dev/installati
 Link al video de demostración: [Demo](https://youtu.be/jz3Dch4fbfU)
 
 ### Repositorios
-* [frontend app] https://github.com/juanmontrasi/frontEndTP.git
-* [backend app] https://github.com/juanmontrasi/backEndTP.git
+* [frontend app] https://github.com/juanmontrasi/frontEndTP
+* [backend app] https://github.com/juanmontrasi/backEndTP
 
 ### Instrucciones de instalación
 # 1. Clonar ambos repositorios:
