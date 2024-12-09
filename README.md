@@ -36,7 +36,7 @@ git clone https://github.com/juanmontrasi/backEndTP.git
   PASSWORD=*tu contraseña*
   ```
 - Creación de la base de datos
-  Ejecutar el schema en MySQL Workbench: [Base de datos](https://github.com/juanmontrasi/backEndTP/blob/master/tp_desarrollo%20(1).sql)
+  Ejecutar el schema en MySQL Workbench: [Base de datos](https://github.com/juanmontrasi/backEndTP/blob/master/tp_desarrollo%20.sql)
   > Estan precargados una serie de productos y un usuario administrador (nombre_usuario = admin, clave = admin)
 - Inicia el BackEnd
   ```
