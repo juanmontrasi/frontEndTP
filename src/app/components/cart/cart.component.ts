@@ -13,6 +13,7 @@ import { Order } from '../../interfaces/order.js';
 import { OrdersProductsService } from '../../services/orders-products.service.js';
 import { OrderProduct } from '../../interfaces/order-product.js';
 import { ProductService } from '../../services/product.service.js';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -46,10 +47,6 @@ export class CartComponent implements OnInit {
 
     const total = this.getTotal();
 
-    if (!this.validateStock()) {
-      return;
-    }
-
     this._ordersService.createOrder(id_usuario, total).subscribe({
       next: (response: any) => {
         const order = response as Order;
@@ -78,10 +75,10 @@ export class CartComponent implements OnInit {
           )
           .subscribe({
             next: (response) => {
-
+              console.log(response);
             },
-            error: (errorMessage) => {
-              this.toastr.error(errorMessage, 'Error al añadir un producto al pedido');
+            error: (error: HttpErrorResponse) => {
+              this.toastr.error('Error al crear el pedido');
             },
             complete: () => {
               this.finalizeOrder();
@@ -103,32 +100,21 @@ export class CartComponent implements OnInit {
 
   setIdPedido(id: number) {
     this.id_pedidos = id;
-
   }
 
   modifyStock(id: number, cant: number) {
     this._productService.getProductById(id).subscribe((product: any) => {
-      if (product[0].stock === 0) {
+      if (product[0].stock <= 0) {
         this.toastr.error('No hay stock disponible', 'Error');
         return;
       } else {
         product[0].stock = product[0].stock - cant;
-        this._productService.updateProduct(id, product[0]).subscribe(() => {
-          console.log('Stock actualizado');
+        this._productService.updateProduct(id, product[0]).subscribe(() => {  
+          
         });
       }
 
     })
-  }
-
-  validateStock(): boolean {
-    for (const product of this.cartProducts) {
-      if (product.stock < this.cantidadProd(product)) {
-        this.toastr.error('No hay stock disponible de ' + product.nombre_producto, 'Error');
-        return false;
-      }
-    }
-    return true;
   }
 
   setCartProducts() {

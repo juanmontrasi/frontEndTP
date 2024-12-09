@@ -80,7 +80,7 @@ export class NewEditUsersComponent implements OnInit {
       nombre_usuario: this.formUser.value.userName,
       clave: this.formUser.value.password,
       email: this.formUser.value.email,
-      tipo_usuario: this.formUser.value.tipo_usuario,
+      tipo_usuario: Number(this.formUser.value.tipo_usuario),
       nombre: this.formUser.value.name,
       apellido: this.formUser.value.lastName,
       telefono: this.formUser.value.phone,
@@ -91,18 +91,30 @@ export class NewEditUsersComponent implements OnInit {
     if (this.id != 0) {
       console.log('actualizar');
       this.loading = true;
-      this._userService.updateUser(this.id, user).subscribe(() => {
+      this._userService.updateUser(this.id, user).subscribe({
+        next: () => {
         this.toastr.success(`El usuario fue actualizado con exito`, 'Usuario actualizado');
         this.router.navigate(['/users']);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.toastr.error('Error al actualizar el usuario', 'Error!');
+          this.loading = false;
+        }
       });
     } else {
 
       console.log('agregar');
       this.loading = true;
-      this._userService.signUp(user).subscribe(() => {
+      this._userService.signUp(user).subscribe({
+        next: () => {
         this.toastr.success(`El usuario fue registrado con exito`, 'Usuario registrado');
         this.router.navigate(['/users']);
         this.loading = false;
+        },
+        error: (err: HttpErrorResponse) => {
+          this.toastr.error('Error al registrar el usuario', 'Error!');
+          this.loading = false;
+        }
       });
     }
 

@@ -81,20 +81,33 @@ export class NewEditProductsComponent implements OnInit {
     if (this.id != 0) {
       console.log('actualizar');
       this.loading = true;
-      this._productService.updateProduct(this.id, product).subscribe(() => {
-        this.toastr.success(`El producto fue actualizado con exito`, 'Producto actualizado');
-        this.router.navigate(['/products']);
+      this._productService.updateProduct(this.id, product).subscribe({
+        next: () => {
+          this.toastr.success(`El producto fue actualizado con exito`, 'Producto actualizado');
+          this.router.navigate(['/products']);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(`No esta autorizado para realizar esta acción`, 'Producto no actualizado');
+          this.loading = false;
+          this.router.navigate(['/products']);
+        }
+        
       });
     } else {
-
-      console.log('agregar');
       this.loading = true;
-      this._productService.createProduct(product).subscribe(() => {
-        console.log('agregar');
-        this.toastr.success(`El product fue registrado con exito`, 'Product registrado');
-        this.router.navigate(['/products']);
-        this.loading = false;
+      this._productService.createProduct(product).subscribe({
+        next: () => {
+          this.toastr.success(`El product fue registrado con exito`, 'Product registrado');
+          this.router.navigate(['/products']);
+          this.loading = false;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(`No esta autorizado para realizar esta acción`, 'Product no registrado');
+          this.loading = false;
+          this.router.navigate(['/products']);
+        }
       });
+      ;
     }
 
 

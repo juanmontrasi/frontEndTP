@@ -33,7 +33,9 @@ export class OrdersService {
   }
 
   getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.myAppUrl + this.myApiUrl);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Order[]>(this.myAppUrl + this.myApiUrl, {headers});
   }
 }
 

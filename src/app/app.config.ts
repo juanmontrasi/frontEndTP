@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideAnimations(), // required animations providers
+    provideAnimations(),
     provideToastr({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',

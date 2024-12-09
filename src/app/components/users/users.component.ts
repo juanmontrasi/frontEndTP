@@ -7,6 +7,7 @@ import { Toast, ToastrService } from 'ngx-toastr';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpErrorResponse } from '@angular/common/http';
+import { errorContext } from 'rxjs/internal/util/errorContext';
 
 @Component({
   selector: 'app-users',
@@ -38,11 +39,10 @@ export class UsersComponent implements OnInit {
     this._userService.deleteUser(id).subscribe({
       next: () => {
         this.getUsers();
-        this.toastr.warning('User deleted successfully', 'User deleted');
+        this.toastr.warning('Usuario eliminado correctamente', 'Usuario eliminado');
       },
       error: (err: HttpErrorResponse) => {
-        this.toastr.error('El usuario tiene pedidos asociados', 'Error!');
-
+        this.toastr.error('Error al eliminar el producto', 'Error!');
       }
     });
   }
