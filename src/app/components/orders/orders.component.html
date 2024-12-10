@@ -22,6 +22,7 @@
         <th scope="col">Total</th>
         <th scope="col">Email Cliente</th>
         <th scope="col">Productos</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -31,6 +32,10 @@
         <td>{{order.total}}</td>
         <td>{{order.Usuario.email}}</td>
         <td>{{listProducts(order.productos_pedidos)}}</td>
+        <td>
+          <button (click)="deleteOrder(order.id_pedidos)" type="submit"
+            class="btn btn-secondary ms-2">Borrar</button>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -61,7 +61,6 @@ export class NewEditUsersComponent implements OnInit {
     this.loading = true;
     this._userService.getUserById(id).subscribe((data: any) => {
       this.loading = false;
-      console.log(data[0].nombre);
       this.formUser.patchValue({
         userName: data[0].nombre_usuario,
         password: data[0].clave,

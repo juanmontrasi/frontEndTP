@@ -1,7 +1,8 @@
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items:first baseline;
+  min-height: 130vh;
 }
 
 

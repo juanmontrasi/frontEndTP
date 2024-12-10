@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../interfaces/user.js';
 import { UserService } from '../../services/user.service.js';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SpinnerComponent } from "../../shared/spinner/spinner.component";
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,14 +12,29 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [FormsModule, SpinnerComponent, CommonModule],
+  imports: [SpinnerComponent, FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
 
-  constructor(private toastr: ToastrService, private _userService: UserService, private router: Router) { }
+  constructor(private toastr: ToastrService,
+    private fb: FormBuilder,
+    private _userService: UserService,
+    private router: Router,
+    private aRouter: ActivatedRoute) {
+      this.formClient = this.fb.group({
+        userName: ['', Validators.required],
+        password: ['', Validators.required],
+        email: ['', Validators.required],
+        name: ['', Validators.required],
+        lastName: ['', Validators.required],
+        phone: ['', Validators.required],
+        address: ['', Validators.required]
+      });
+     }
 
+  formClient: FormGroup;
   userName: string = '';
   password: string = '';
   email: string = '';
@@ -32,28 +47,16 @@ export class SignupComponent {
 
 
   addUser() {
-    if (this.userName == '' || this.password == '' || this.email == '' || this.phone == '' || this.name == '' || this.lastName == '' || this.address == '') {
-      this.toastr.error('Todos los campos son obligatorios', 'Error!');
-      console.log(this.userName);
-      console.log(this.password);
-      console.log(this.email);
-      console.log(this.phone);
-      console.log(this.name);
-      console.log(this.lastName);
-      console.log(this.address);
-      return;
-    }
-
     const user: User = {
-      nombre_usuario: this.userName,
-      clave: this.password,
-      tipo_usuario: 2,
-      email: this.email,
-      telefono: this.phone,
-      nombre: this.name,
-      apellido: this.lastName,
-      direccion: this.address
+      nombre_usuario: this.formClient.value.userName,
+      clave: this.formClient.value.password,
+      email: this.formClient.value.email,
+      nombre: this.formClient.value.name,
+      apellido: this.formClient.value.lastName,
+      telefono: this.formClient.value.phone,
+      direccion: this.formClient.value.address
     }
+    console.log(user);
     this.loading = true;
     this._userService.signUp(user).subscribe({
       next: (v) => {

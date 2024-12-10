@@ -41,14 +41,17 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    this._productService.deleteProduct(id).subscribe({
-      next: () => {
-        this.getProducts();
-      this.toastr.warning('Producto eliminado correctamente', 'Producto eliminado');
-    },
-    error: (error: HttpErrorResponse) => {
-      this.toastr.error('Error al eliminar el producto', 'Error');
+    if (confirm('¿Estás seguro de eliminar este producto?')) {
+      this._productService.deleteProduct(id).subscribe({
+        next: () => {
+          this.getProducts();
+        this.toastr.warning('Producto eliminado correctamente', 'Producto eliminado');
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastr.error('Error al eliminar el producto', 'Error');
+      }
+      });
     }
-    });
+    
   }
 }

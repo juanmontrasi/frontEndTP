@@ -36,15 +36,18 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    this._userService.deleteUser(id).subscribe({
-      next: () => {
-        this.getUsers();
-        this.toastr.warning('Usuario eliminado correctamente', 'Usuario eliminado');
-      },
-      error: (err: HttpErrorResponse) => {
-        this.toastr.error('Error al eliminar el producto', 'Error!');
-      }
-    });
+    if (confirm('¿Estás seguro de eliminar este usuario?')) {
+      this._userService.deleteUser(id).subscribe({
+        next: () => {
+          this.getUsers();
+          this.toastr.warning('Usuario eliminado correctamente', 'Usuario eliminado');
+        },
+        error: (err: HttpErrorResponse) => {
+          this.toastr.error('Error al eliminar el producto', 'Error!');
+        }
+      });
+    }
+    
   }
 }
 

@@ -1,40 +1,61 @@
 <div class="container">
-  <div class="row g-3" *ngIf="!loading">
+  <form class="row g-3" *ngIf="!loading" [formGroup]="formClient">
     <div class="col-8">
       <h2>Registrarse</h2>
     </div>
     <div class="col-md-6">
       <label for="inputUsuario" name="userName" class="form-label">Nombre de
         usuario</label>
-      <input type="text" class="form-control" [(ngModel)]="userName">
+      <input type="text" class="form-control" formControlName="userName">
+      <span *ngIf="formClient.get('userName')?.hasError('required') && formClient.get('userName')?.touched">
+        El campo Nombre de Usuario <strong>es requerido</strong>
+      </span>
     </div>
     <div class="col-md-6">
       <label for="inputPassword4" class="form-label">Contraseña</label>
-      <input type="password" class="form-control" [(ngModel)]="password">
+      <input type="password" class="form-control" formControlName="password">
+      <span *ngIf="formClient.get('password')?.hasError('required') && formClient.get('password')?.touched">
+        El campo Contraseña <strong>es requerido</strong>
+      </span>
     </div>
     <div class="col-12">
       <label for="inputEmail" class="form-label">Email</label>
-      <input type="text" class="form-control" [(ngModel)]="email">
+      <input type="text" class="form-control" formControlName="email">
+      <span *ngIf="formClient.get('email')?.hasError('required') && formClient.get('email')?.touched">
+        El campo Email <strong>es requerido</strong>
+      </span>
     </div>
     <div class="col-12">
       <label for="inputTelefono" class="form-label">Telefono</label>
-      <input type="text" class="form-control" [(ngModel)]="phone">
+      <input type="text" class="form-control" formControlName="phone">
+      <span *ngIf="formClient.get('phone')?.hasError('required') && formClient.get('phone')?.touched">
+        El campo Telefono <strong>es requerido</strong>
+      </span>
     </div>
     <div class="col-md-6">
       <label for="inputNombre" class="form-label">Nombre</label>
-      <input type="text" class="form-control" [(ngModel)]="name">
+      <input type="text" class="form-control" formControlName="name">
+      <span *ngIf="formClient.get('name')?.hasError('required') && formClient.get('name')?.touched">
+        El campo Nombre <strong>es requerido</strong>
+      </span>
     </div>
     <div class="col-md-6">
       <label for="inputApellido" class="form-label">Apellido</label>
-      <input type="text" class="form-control" [(ngModel)]="lastName">
+      <input type="text" class="form-control" formControlName="lastName">
+      <span *ngIf="formClient.get('lastName')?.hasError('required') && formClient.get('lastName')?.touched">
+        El campo Apellido <strong>es requerido</strong>
+      </span>
     </div>
     <div class="col-12">
       <label for="inputDireccion" class="form-label">Dirección</label>
-      <input type="text" class="form-control" [(ngModel)]="address">
+      <input type="text" class="form-control" formControlName="address">
+      <span *ngIf="formClient.get('address')?.hasError('required') && formClient.get('address')?.touched">
+        El campo Direccion <strong>es requerido</strong>
+      </span>
     </div>
     <div class="col-12">
       <button type="submit" (click)="addUser()" class="btn btn-primary">Registrarse</button>
     </div>
-  </div>
+  </form>
   <app-spinner *ngIf="loading"></app-spinner>
 </div>

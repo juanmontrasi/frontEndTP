@@ -12,10 +12,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="prodClients">Productos</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="#">Servicios</a>
-        </li> -->
-        <li class="nav-item dropdown" *ngIf="userService.isAdmin()">
+        <li class="nav-item dropdown" *ngIf="_userService.isAdmin()">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Administración
           </a>
@@ -26,19 +23,25 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" *ngIf="!userService.isAuthenticated()" routerLink="/login"
+          <a class="nav-link active" aria-current="page" *ngIf="!_userService.isAuthenticated()" routerLink="/login"
             href="/login">Ingresar </a>
-          <a class="nav-link active" aria-current="page" *ngIf="userService.isAuthenticated()" (click)="onLogout()"
+          <a class="nav-link active" aria-current="page" *ngIf="_userService.isAuthenticated()" (click)="onLogout()"
             routerLink="/" href="/">Salir </a>
-          <!-- <button *ngIf="!userService.isAuthenticated()" (click)="onNavigateToLogin()">Ingresar</button>
-          <button *ngIf="userService.isAuthenticated()" (click)="onLogout()">Logout</button> -->
         </li>
       </ul>
     </div>
-    <a routerLink="/cart" href="/cart"><svg width="50" height="16" fill="currentColor" class="bi bi-bag"
-        viewBox="0 0 16 16">
-        <path
-          d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
-      </svg></a>
+    <a routerLink="/cart" href="/cart">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+    </a>
+    <a (click)="updateUser()" *ngIf="_userService.isAuthenticated()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </a>
   </div>
 </nav>

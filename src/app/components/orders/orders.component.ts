@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-orders',
@@ -23,7 +25,7 @@ export class OrdersComponent implements OnInit {
     this.getOrders();
   }
 
-  constructor(private _ordersService: OrdersService) {
+  constructor(private _ordersService: OrdersService, private toastr: ToastrService) {
 
   }
 
@@ -53,4 +55,17 @@ export class OrdersComponent implements OnInit {
     return products;
   }
 
+  deleteOrder(id: number) {
+    if (confirm('¿Estás seguro de eliminar este pedido?')) {
+      this._ordersService.deleteOrder(id).subscribe({
+        next: () => {
+          this.getOrders();
+          this.toastr.warning('Pedido eliminado correctamente', 'Producto eliminado');
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error('Error al eliminar el pedido', 'Error');
+        }
+      });
+    }
+  } 
 }
