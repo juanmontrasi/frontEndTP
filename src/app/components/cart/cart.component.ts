@@ -75,18 +75,17 @@ export class CartComponent implements OnInit {
           )
           .subscribe({
             next: (response) => {
-              console.log(response);
+              console.log('producto agregado')
             },
-            error: (error: HttpErrorResponse) => {
-              this.toastr.error('Error al crear el pedido');
+            error: (err) => {
+              this.toastr.error(err.error.message, 'Error');
             },
             complete: () => {
               this.finalizeOrder();
             },
           });
       },
-      error: (errorMessage) => {
-        console.error(errorMessage);
+      error: () => {
         this.toastr.error('Error al crear el pedido');
       },
     });

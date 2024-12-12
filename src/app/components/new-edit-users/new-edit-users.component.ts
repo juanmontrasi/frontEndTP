@@ -35,7 +35,6 @@ export class NewEditUsersComponent implements OnInit {
       address: ['', Validators.required]
     });
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
-    console.log(aRouter.snapshot.paramMap.get('id'));
   }
   ngOnInit(): void {
     if (this.id != 0) {
@@ -88,7 +87,6 @@ export class NewEditUsersComponent implements OnInit {
 
     user.id_usuarios = this.id;
     if (this.id != 0) {
-      console.log('actualizar');
       this.loading = true;
       this._userService.updateUser(this.id, user).subscribe({
         next: () => {
@@ -101,8 +99,6 @@ export class NewEditUsersComponent implements OnInit {
         }
       });
     } else {
-
-      console.log('agregar');
       this.loading = true;
       this._userService.signUp(user).subscribe({
         next: () => {

@@ -34,6 +34,6 @@ export class HeaderComponent implements OnInit {
 
   updateUser() {
     this.id_usuario = this._userService.getUserId();
-    this.router.navigate(['editCurrentuser/', this.id_usuario]);
+    this.router.navigate([`editCurrentUser/${this.id_usuario}`]);
   }
 }

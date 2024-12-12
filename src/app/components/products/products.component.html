@@ -30,10 +30,11 @@
         <td>{{product.stock}}</td>
         <td>{{product.precio | currency:'USD'}}</td>
         <td>{{product.imagen}}</td>
-        <td>
-          <button type="submit" class="btn btn-info" routerLink="/editProduct/{{product.id_productos}}">Editar</button>
-          <button (click)="deleteProduct(product.id_productos!)" type="submit"
-            class="btn btn-secondary ms-2">Borrar</button>
+        <td id="buttons">
+          <div class="d-flex">
+            <button type="submit" class="btn btn-info me-2" routerLink="/editProduct/{{product.id_productos}}">Editar</button>
+            <button (click)="deleteProduct(product.id_productos!)" type="submit" class="btn btn-secondary ms-2">Borrar</button>
+          </div>
         </td>
       </tr>
     </tbody>

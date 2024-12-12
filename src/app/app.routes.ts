@@ -15,7 +15,7 @@ import { OrdersComponent } from './components/orders/orders.component.js';
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, },
   { path: 'signup', component: SignupComponent },
-  { path: 'editCurrentUser/:id', component: HomeComponent },
+  { path: 'editCurrentUser/:id', component: SignupComponent },
   { path: 'products', component: ProductsComponent, canActivate: [AuthService] },
   { path: 'newProduct', component: NewEditProductsComponent, canActivate: [AuthService] },
   { path: 'editProduct/:id', component: NewEditProductsComponent, canActivate: [AuthService] },

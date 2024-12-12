@@ -42,8 +42,8 @@ export class UsersComponent implements OnInit {
           this.getUsers();
           this.toastr.warning('Usuario eliminado correctamente', 'Usuario eliminado');
         },
-        error: (err: HttpErrorResponse) => {
-          this.toastr.error('Error al eliminar el producto', 'Error!');
+        error: (err) => {
+          this.toastr.error(err.error.message, 'Error!');
         }
       });
     }

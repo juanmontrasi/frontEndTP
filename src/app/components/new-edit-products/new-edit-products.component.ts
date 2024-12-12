@@ -32,7 +32,6 @@ export class NewEditProductsComponent implements OnInit {
       image: ['', Validators.required]
     });
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
-    console.log(aRouter.snapshot.paramMap.get('id'));
   }
   ngOnInit(): void {
     if (this.id != 0) {
@@ -57,7 +56,6 @@ export class NewEditProductsComponent implements OnInit {
     this.loading = true;
     this._productService.getProductById(id).subscribe((data: any) => {
       this.loading = false;
-      console.log(data[0].nombre);
       this.formProduct.patchValue({
         productName: data[0].nombre_producto,
         description: data[0].desc_producto,
@@ -79,7 +77,6 @@ export class NewEditProductsComponent implements OnInit {
 
     product.id_productos = this.id;
     if (this.id != 0) {
-      console.log('actualizar');
       this.loading = true;
       this._productService.updateProduct(this.id, product).subscribe({
         next: () => {

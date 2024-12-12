@@ -6,6 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Order } from '../../interfaces/order.js';
 
 @Component({
   selector: 'app-orders',
@@ -38,12 +39,16 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  state(estado: boolean) {
-    if (estado == false) {
-      this.orderState = 'En espera';
-    } else {
-      this.orderState = 'Entregado';
-    }
+  changeState(id: number, order: Order) {
+    this._ordersService.updateOrder(id, order).subscribe({
+      next: () => {
+        this.getOrders();
+        this.toastr.success('Estado de pedido actualizado correctamente', 'Pedido actualizado');
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastr.error('Error al actualizar el estado del pedido', 'Error');
+      }
+    })
   }
 
   listProducts(productos_pedidos: any[]) {

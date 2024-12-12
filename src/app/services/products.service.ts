@@ -15,7 +15,7 @@ export class ProductsService {
 
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
-    this.myAppUrl = 'http://localhost:1234/';
+    this.myAppUrl = 'http://localhost:7272/';
     this.myApiUrl = 'products';
   }
 

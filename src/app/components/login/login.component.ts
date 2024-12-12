@@ -25,7 +25,6 @@ export class LoginComponent {
   loading: boolean = false;
 
   login() {
-    // valido que el usuario ingrese datos
     if (this.userName == '' || this.password == '') {
       this.toastr.error('Todos los campos son obligatorios', 'Error!');
       return

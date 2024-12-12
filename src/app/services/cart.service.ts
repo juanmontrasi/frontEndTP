@@ -20,8 +20,6 @@ export class CartService {
       this.cartProducts.push(product);
       localStorage.setItem('cart', JSON.stringify(this.cartProducts));
     }
-
-    console.log('Producto agregado al carrito');
   }
 
   getCartProducts(): Product[] {

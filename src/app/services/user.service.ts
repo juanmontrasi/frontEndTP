@@ -22,7 +22,7 @@ export class UserService {
 
 
   constructor(private http: HttpClient, private toastr: ToastrService, private _orderService: OrdersService) {
-    this.myAppUrl = 'http://localhost:1234/';
+    this.myAppUrl = 'http://localhost:7272/';
     this.myApiUrl = 'users';
 
   }

@@ -28,7 +28,7 @@
       <tr *ngFor="let user of listUsers | filterBy: searchInput | paginate: { itemsPerPage: 5, currentPage: p }">
         <td>{{user.id_usuarios}}</td>
         <td>{{user.nombre_usuario}}</td>
-        <td>{{user.tipo_usuario}}</td>
+        <td>{{(user.tipo_usuario === 1) ? "Administrador" : "Cliente"}}</td>
         <td>{{user.email}}</td>
         <td>{{user.telefono}}</td>
         <td>{{user.nombre}}</td>
