@@ -14,14 +14,14 @@
   </div>
 
   <div class="container-cards">
-    <div class="card" style="width: 18rem;" *ngFor="let product of listProd" data-bs-toggle="modal" data-bs-target="#productModal" (click)="setProduct(product)">
+    <div class="card" style="width: 18rem;" *ngFor="let product of listProd" (click)="setProduct(product)">
       <img [src]="'assets/products/' + product.imagen" class="card-img-top" [alt]="'assets/products/' + product.imagen">
-      <div class="card-body">
+      <div class="card-body"  data-bs-toggle="modal" data-bs-target="#productModal">
         <h5 class="card-title">{{ product.nombre_producto }}</h5>
         <p class="card-text"><strong>Precio:</strong> {{ product.precio | currency:'USD' }}</p>
-        <a (click)="addProdToCart(product)" class="btn btn-primary" *ngIf="product.stock > 10" >Agregar al Carrito</a>
         <a class="btn btn-danger" *ngIf="product.stock<= 10">Sin Stock</a>
       </div>
+      <button id="cartButton" (click)="addProdToCart(product); $event.stopImmediatePropagation()" class="btn btn-primary" *ngIf="product.stock > 10" >Agregar al Carrito</button>
     </div>
   </div>
 </div>
@@ -38,7 +38,7 @@
         <p class="card-text"><strong>Precio:</strong> {{ selectedProduct.precio | currency:'USD' }}</p>
       </div>
       <div class="modal-footer">
-        <button (click)="addProdToCart(selectedProduct)" class="btn btn-primary" *ngIf="selectedProduct.stock > 10" >Agregar al Carrito</button>
+        <button (click)="addProdToCart(selectedProduct) " class="btn btn-primary" *ngIf="selectedProduct.stock > 10" >Agregar al Carrito</button>
       </div>
     </div>
   </div>

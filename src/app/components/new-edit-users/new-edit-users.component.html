@@ -31,7 +31,7 @@
     </div>
     <div class="col-12">
       <label for="inputEmail" class="form-label">Email</label>
-      <input type="text" class="form-control" formControlName="email">
+      <input id="user-email" type="text" class="form-control" formControlName="email" onsubmit="validateEmail()"> 
       <span *ngIf="formUser.get('email')?.hasError('required') && formUser.get('email')?.touched">
         El campo Email <strong>es requerido</strong>
       </span>

@@ -14,11 +14,14 @@ import { OrdersProductsService } from '../../services/orders-products.service.js
 import { OrderProduct } from '../../interfaces/order-product.js';
 import { ProductService } from '../../services/product.service.js';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CheckoutService } from '../../services/checkout.service.js';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, NgxSpinnerModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -26,7 +29,17 @@ export class CartComponent implements OnInit {
   cartProducts: Product[] = [];
   cartProductsRepeated: Product[] = [];
   id_pedidos: number = 0;
-  constructor(private _ordersProduct: OrdersProductsService, private toastr: ToastrService, private userService: UserService, private _productService: ProductService, private _cartService: CartService, private _ordersService: OrdersService, private router: Router,) { }
+  order: any = {};
+  constructor(
+    private _checkoutService: CheckoutService , 
+    private _ordersProduct: OrdersProductsService, 
+    private toastr: ToastrService, 
+    private userService: UserService, 
+    private _productService: ProductService, 
+    private _cartService: CartService, 
+    private _ordersService: OrdersService, 
+    private router: Router,
+    private spinner:NgxSpinnerService) { }
 
   ngOnInit() {
     this.cartProductsRepeated = this._cartService.getCartProducts();
@@ -34,6 +47,7 @@ export class CartComponent implements OnInit {
   }
 
   Proceed() {
+    this.spinner.show();
     if (!this.userService.isAuthenticated()) {
       this.toastr.error('Inicie sesión para continuar', 'Error');
       return;
@@ -44,12 +58,13 @@ export class CartComponent implements OnInit {
       this.toastr.error('Error al obtener el id del usuario', 'Error');
       return;
     }
-
+              
     const total = this.getTotal();
 
     this._ordersService.createOrder(id_usuario, total).subscribe({
       next: (response: any) => {
         const order = response as Order;
+        this.order = order;
         const id_pedidos = order.id_pedidos!;
         this.setIdPedido(id_pedidos);
 
@@ -79,22 +94,41 @@ export class CartComponent implements OnInit {
             },
             error: (err) => {
               this.toastr.error(err.error.message, 'Error');
+              this.spinner.hide();
             },
             complete: () => {
-              this.finalizeOrder();
+              
+              this.finalizeOrder(this.order);
             },
           });
       },
       error: () => {
-        this.toastr.error('Error al crear el pedido');
+        if(this.getTotal() === 0) {
+          this.toastr.error('No hay productos en el carrito', 'Error');
+        } else {
+          this.toastr.error('Error al crear el pedido');
+        }
+        this.spinner.hide();
       },
     });
   }
 
-  finalizeOrder() {
-    localStorage.removeItem('cart');
-    this.cartProducts = [];
-    this.toastr.success('Estamos procesando tu pedido', 'Pedido Creado', { timeOut: 10000 });
+  finalizeOrder(order: Order) {
+    this._checkoutService.sendEmail(order).subscribe({
+      next: () => {      
+        // localStorage.removeItem('cart');
+        // this.cartProducts = [];
+        setTimeout(() => {
+          this.spinner.hide();
+          this.toastr.success('Estamos procesando tu pedido', 'Pedido Creado', { timeOut: 10000 });
+          this.router.navigate(['/home']); // Mover aquí la navegación
+        }, 5000);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.toastr.error(err.error.message, 'Error');
+        this.spinner.hide();
+      },
+    });
   }
 
   setIdPedido(id: number) {

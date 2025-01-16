@@ -1,5 +1,6 @@
 <div class="container">
 
+
   <div class="container-busqueda">
     <div class="row">
       <div class="col-12">
@@ -32,9 +33,11 @@
           <p class="card-text">Total de productos: {{cartProductsRepeated.length}}</p>
           <p class="card-text"><strong>Total:</strong> {{getTotal()}} </p>
           <button type="button" class="btn btn-primary" (click)="Proceed()">Proceder al pago</button>
+          
         </div>
       </div>
     </div>
   </div>
+  <ngx-spinner type="ball-scale-multiple" bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Procesando el pedido </p></ngx-spinner>
 
 </div>
