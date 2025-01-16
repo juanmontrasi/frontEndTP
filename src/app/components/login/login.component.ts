@@ -22,7 +22,6 @@ export class LoginComponent {
 
   userName: string = '';
   password: string = '';
-  loading: boolean = false;
 
   login() {
     if (this.userName == '' || this.password == '') {

@@ -27,7 +27,7 @@ export class NewEditUsersComponent implements OnInit {
     this.formUser = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email, ]],
       tipo_usuario: 1,
       name: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -45,7 +45,6 @@ export class NewEditUsersComponent implements OnInit {
 
   operacion: string = 'Agregar ';
   id: number;
-  loading: boolean = false;
   formUser: FormGroup;
   userName: string = '';
   password: string = '';
@@ -57,9 +56,7 @@ export class NewEditUsersComponent implements OnInit {
   address: string = '';
 
   getUser(id: number) {
-    this.loading = true;
     this._userService.getUserById(id).subscribe((data: any) => {
-      this.loading = false;
       this.formUser.patchValue({
         userName: data[0].nombre_usuario,
         password: data[0].clave,
@@ -87,7 +84,6 @@ export class NewEditUsersComponent implements OnInit {
 
     user.id_usuarios = this.id;
     if (this.id != 0) {
-      this.loading = true;
       this._userService.updateUser(this.id, user).subscribe({
         next: () => {
         this.toastr.success(`El usuario fue actualizado con exito`, 'Usuario actualizado');
@@ -95,20 +91,16 @@ export class NewEditUsersComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
           this.toastr.error('Error al actualizar el usuario', 'Error!');
-          this.loading = false;
         }
       });
     } else {
-      this.loading = true;
       this._userService.signUp(user).subscribe({
         next: () => {
         this.toastr.success(`El usuario fue registrado con exito`, 'Usuario registrado');
         this.router.navigate(['/users']);
-        this.loading = false;
         },
         error: (err: HttpErrorResponse) => {
           this.toastr.error('Error al registrar el usuario', 'Error!');
-          this.loading = false;
         }
       });
     }

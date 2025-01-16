@@ -1,6 +1,6 @@
 <div class="container">
 
-  <form class="row g-3" [formGroup]="formProduct" (ngSubmit)="addProduct()" *ngIf="!loading">
+  <form class="row g-3" [formGroup]="formProduct" (ngSubmit)="addProduct()">
     <div class="col-8">
       <h2>{{ operacion }} Producto</h2>
 
@@ -38,5 +38,4 @@
       <button type="submit" [disabled]="formProduct.invalid" class="btn btn-primary">{{operacion}}</button>
 
     </div>
-    <app-spinner *ngIf="loading"></app-spinner>
   </form>

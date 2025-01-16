@@ -72,7 +72,7 @@ export class CartComponent implements OnInit {
         from(this.cartProducts)
           .pipe(
             concatMap((product) => {
-              const cantidad = this.cantidadProd(product);
+              const cantidad = this.quantityProduct(product);
               const subtotal = cantidad * product.precio;
               const orderProduct: OrderProduct = {
                 id_pedidos: id_pedidos,
@@ -116,12 +116,12 @@ export class CartComponent implements OnInit {
   finalizeOrder(order: Order) {
     this._checkoutService.sendEmail(order).subscribe({
       next: () => {      
-        // localStorage.removeItem('cart');
-        // this.cartProducts = [];
+        localStorage.removeItem('cart');
+        this.cartProducts = [];
         setTimeout(() => {
           this.spinner.hide();
           this.toastr.success('Estamos procesando tu pedido', 'Pedido Creado', { timeOut: 10000 });
-          this.router.navigate(['/home']); // Mover aquí la navegación
+          this.router.navigate(['/home']);
         }, 5000);
       },
       error: (err: HttpErrorResponse) => {
@@ -160,7 +160,7 @@ export class CartComponent implements OnInit {
 
   }
 
-  cantidadProd(product: Product) {
+  quantityProduct(product: Product) {
     product.cantidad = this.cartProductsRepeated.filter((prod) => prod.id_productos == product.id_productos).length;
     return product.cantidad;
   }
@@ -180,12 +180,12 @@ export class CartComponent implements OnInit {
 
   }
 
-  SumCant(product: Product) {
+  addProduct(product: Product) {
     this.cartProductsRepeated.push(product);
     localStorage.setItem('cart', JSON.stringify(this.cartProductsRepeated));
   }
 
-  ResCant(product: Product) {
+  subtractProduct(product: Product) {
     const sizeProd = this.cartProductsRepeated.filter(prod => prod.id_productos === product.id_productos).length;
     if (sizeProd === 0) {
       this.cartProducts = this.cartProducts.filter(prod => prod.id_productos !== product.id_productos);

@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="form-login" *ngIf="!loading">
+  <form class="form-login">
     <div class="form-floating mb-3">
       <h2>Ingreso</h2>
     </div>
@@ -16,5 +16,4 @@
     </div>
     <button type="submit" class="btn btn-primary" (click)="login()">Ingresar</button>
   </form>
-  <app-spinner *ngIf="loading"></app-spinner>
 </div>

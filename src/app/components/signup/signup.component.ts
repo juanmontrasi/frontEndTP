@@ -54,12 +54,8 @@ export class SignupComponent implements OnInit {
   lastName: string = '';
   address: string = '';
 
-  loading: boolean = false;
-
   getUser(id: number) {
-    this.loading = true;
     this._userService.getUserById(id).subscribe((data: any) => {
-      this.loading = false;
       this.formClient.patchValue({
         userName: data[0].nombre_usuario,
         password: data[0].clave,
@@ -85,10 +81,8 @@ export class SignupComponent implements OnInit {
       telefono: this.formClient.value.phone,
       direccion: this.formClient.value.address
     }
-    this.loading = true;
     user.id_usuarios = this.id;
     if (this.id != 0) {
-      this.loading = true;
       this._userService.updateUser(this.id, user).subscribe({
         next: () => {
         this.toastr.success(`Actualizaste tu usuario`, 'Usuario actualizado');
@@ -96,20 +90,16 @@ export class SignupComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
           this.toastr.error('Error al actualizar el usuario', 'Error!');
-          this.loading = false;
         }
       });
     } else {
-      this.loading = true;
       this._userService.signUp(user).subscribe({
         next: () => {
         this.toastr.success(`Te registraste con exito`, 'Usuario registrado');
         this.router.navigate(['/login']);
-        this.loading = false;
         },
         error: (err: HttpErrorResponse) => {
           this.toastr.error('Error al registrar el usuario', 'Error!');
-          this.loading = false;
         }
       });
     }

@@ -16,11 +16,11 @@
           <h5 class="card-title">{{ product.nombre_producto }}</h5>
           <p class="card-text">{{ product.desc_producto }}</p>
           <p class="card-text"><strong>Precio:</strong> {{ product.precio}}</p>
-          <p class="card-text">Cantidad {{cantidadProd(product)}}</p>
+          <p class="card-text">Cantidad {{quantityProduct(product)}}</p>
           <a class="btn btn-primary" (click)="DeleteItem(product)">Eliminar</a>
-          <button type="button" [disabled]="product.cantidad! >= 10" (click)="SumCant(product)"
+          <button type="button" [disabled]="product.cantidad! >= 10" (click)="addProduct(product)"
             class="btn btn-secondary" style="margin-left: 10px;">+</button>
-          <button type="button" (click)="ResCant(product)" class="btn btn-secondary"
+          <button type="button" (click)="subtractProduct(product)" class="btn btn-secondary"
             style="margin-left: 10px;">-</button>
         </div>
       </div>

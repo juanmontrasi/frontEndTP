@@ -1,7 +1,7 @@
 <div class="container">
 
   <form class="row g-3
-  " [formGroup]="formUser" (ngSubmit)="addUser()" *ngIf="!loading">
+  " [formGroup]="formUser" (ngSubmit)="addUser()" >
     <div class="col-8">
       <h2>{{ operacion }} Usuario</h2>
     </div>
@@ -31,9 +31,12 @@
     </div>
     <div class="col-12">
       <label for="inputEmail" class="form-label">Email</label>
-      <input id="user-email" type="text" class="form-control" formControlName="email" onsubmit="validateEmail()"> 
+      <input id="user-email" type="text" class="form-control" formControlName="email"> 
       <span *ngIf="formUser.get('email')?.hasError('required') && formUser.get('email')?.touched">
         El campo Email <strong>es requerido</strong>
+      </span>
+      <span *ngIf="formUser.get('email')?.hasError('email')">
+        El campo Email <strong>no tiene un formato válido</strong>.
       </span>
     </div>
     <div class="col-12">
@@ -68,5 +71,4 @@
       <button type="submit" [disabled]="formUser.invalid" class="btn btn-primary">{{operacion}}</button>
 
     </div>
-    <app-spinner *ngIf="loading"></app-spinner>
   </form>
