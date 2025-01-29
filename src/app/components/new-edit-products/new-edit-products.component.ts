@@ -80,7 +80,7 @@ export class NewEditProductsComponent implements OnInit {
           this.router.navigate(['/products']);
         },
         error: (error: HttpErrorResponse) => {
-          this.toastr.error(`No esta autorizado para realizar esta acción`, 'Producto no actualizado');
+          this.toastr.error(error.error.message, 'Producto no actualizado');
           this.router.navigate(['/products']);
         }
         
@@ -92,7 +92,7 @@ export class NewEditProductsComponent implements OnInit {
           this.router.navigate(['/products']);
         },
         error: (error: HttpErrorResponse) => {
-          this.toastr.error(`No esta autorizado para realizar esta acción`, 'Product no registrado');
+          this.toastr.error(error.error.message, 'Product no registrado');
           this.router.navigate(['/products']);
         }
       });

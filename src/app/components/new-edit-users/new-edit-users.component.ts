@@ -27,11 +27,11 @@ export class NewEditUsersComponent implements OnInit {
     this.formUser = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email, ]],
+      email: ['', [Validators.required, Validators.email,]],
       tipo_usuario: 1,
       name: ['', Validators.required],
       lastName: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       address: ['', Validators.required]
     });
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
@@ -86,21 +86,21 @@ export class NewEditUsersComponent implements OnInit {
     if (this.id != 0) {
       this._userService.updateUser(this.id, user).subscribe({
         next: () => {
-        this.toastr.success(`El usuario fue actualizado con exito`, 'Usuario actualizado');
-        this.router.navigate(['/users']);
+          this.toastr.success(`El usuario fue actualizado con exito`, 'Usuario actualizado');
+          this.router.navigate(['/users']);
         },
         error: (err: HttpErrorResponse) => {
-          this.toastr.error('Error al actualizar el usuario', 'Error!');
+          this.toastr.error(err.error.message, 'Error!');
         }
       });
     } else {
       this._userService.signUp(user).subscribe({
         next: () => {
-        this.toastr.success(`El usuario fue registrado con exito`, 'Usuario registrado');
-        this.router.navigate(['/users']);
+          this.toastr.success(`El usuario fue registrado con exito`, 'Usuario registrado');
+          this.router.navigate(['/users']);
         },
         error: (err: HttpErrorResponse) => {
-          this.toastr.error('Error al registrar el usuario', 'Error!');
+          this.toastr.error(err.error.message, 'Error!');
         }
       });
     }

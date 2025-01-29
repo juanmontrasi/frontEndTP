@@ -24,12 +24,18 @@
       <span *ngIf="formClient.get('email')?.hasError('required') && formClient.get('email')?.touched">
         El campo Email <strong>es requerido</strong>
       </span>
+      <span *ngIf="formClient.get('email')?.hasError('email')">
+        El campo Email <strong>no tiene un formato válido</strong>.
+      </span>
     </div>
     <div class="col-12">
       <label for="inputTelefono" class="form-label">Telefono</label>
       <input type="text" class="form-control" formControlName="phone">
       <span *ngIf="formClient.get('phone')?.hasError('required') && formClient.get('phone')?.touched">
         El campo Telefono <strong>es requerido</strong>
+      </span>
+      <span *ngIf="formClient.get('phone')?.hasError('pattern')">
+        El campo Telefono <strong>no tiene un formato válido</strong>.
       </span>
     </div>
     <div class="col-md-6">
@@ -54,7 +60,8 @@
       </span>
     </div>
     <div class="col-12">
-      <button type="submit" (click)="addUser()" class="btn btn-primary">{{ operacion }}</button>
+      <button type="submit" (click)="addUser()" [disabled]="formClient.invalid" class="btn btn-primary">{{ operacion
+        }}</button>
     </div>
   </form>
 </div>

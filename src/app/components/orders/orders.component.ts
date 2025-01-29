@@ -31,11 +31,16 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrders() {
-    this._ordersService.getOrders().subscribe(orders => {
-      this.listOrders = orders;
-      this.listOrders.forEach((order: any) => {
-        order.fecha_pedido = new Date(order.fecha_pedido).toLocaleString();
-      })
+    this._ordersService.getOrders().subscribe({
+      next: (orders: any) => {
+        this.listOrders = orders;
+        this.listOrders.forEach((order: any) => {
+          order.fecha_pedido = new Date(order.fecha_pedido).toLocaleString();
+        })
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastr.error(error.error.message, 'Error');
+      }
     });
   }
 
@@ -46,7 +51,7 @@ export class OrdersComponent implements OnInit {
         this.toastr.success('Estado de pedido actualizado correctamente', 'Pedido actualizado');
       },
       error: (error: HttpErrorResponse) => {
-        this.toastr.error('Error al actualizar el estado del pedido', 'Error');
+        this.toastr.error(error.error.message, 'Error');
       }
     })
   }
@@ -68,7 +73,7 @@ export class OrdersComponent implements OnInit {
           this.toastr.warning('Pedido eliminado correctamente', 'Producto eliminado');
         },
         error: (error: HttpErrorResponse) => {
-          this.toastr.error('Error al eliminar el pedido', 'Error');
+          this.toastr.error(error.error.message, 'Error');
         }
       });
     }

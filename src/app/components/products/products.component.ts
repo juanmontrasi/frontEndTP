@@ -48,7 +48,7 @@ export class ProductsComponent implements OnInit {
         this.toastr.warning('Producto eliminado correctamente', 'Producto eliminado');
       },
       error: (error: HttpErrorResponse) => {
-        this.toastr.error('Error al eliminar el producto', 'Error');
+        this.toastr.error(error.error.message, 'Error');
       }
       });
     }

@@ -10,6 +10,7 @@ import { CartComponent } from './components/cart/cart.component.js';
 import { ProductsComponent } from './components/products/products.component.js';
 import { NewEditProductsComponent } from './components/new-edit-products/new-edit-products.component.js';
 import { OrdersComponent } from './components/orders/orders.component.js';
+import { UserPanelComponent } from './components/user-panel/user-panel.component';
 
 
 export const routes: Routes = [
@@ -25,5 +26,6 @@ export const routes: Routes = [
   { path: 'orders', component: OrdersComponent, canActivate: [AuthService] },
   { path: 'prodClients', component: ProdClientComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'userPanel', component: UserPanelComponent },
   { path: '**', component: HomeComponent }
 ];

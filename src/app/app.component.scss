@@ -1,7 +1,9 @@
 app-header {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 1000;
+
 }
 
 router-outlet {
@@ -10,7 +12,7 @@ router-outlet {
 
 
 app-footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
 }

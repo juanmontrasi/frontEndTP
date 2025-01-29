@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [SpinnerComponent, FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -24,17 +24,17 @@ export class SignupComponent implements OnInit {
     private _userService: UserService,
     private router: Router,
     private aRouter: ActivatedRoute) {
-      this.formClient = this.fb.group({
-        userName: ['', Validators.required],
-        password: ['', Validators.required],
-        email: ['', Validators.required],
-        name: ['', Validators.required],
-        lastName: ['', Validators.required],
-        phone: ['', Validators.required],
-        address: ['', Validators.required]
-      });
-      this.id = Number(aRouter.snapshot.paramMap.get('id'));
-     }
+    this.formClient = this.fb.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email,]],
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      address: ['', Validators.required]
+    });
+    this.id = Number(aRouter.snapshot.paramMap.get('id'));
+  }
 
   ngOnInit(): void {
     if (this.id != 0) {
@@ -85,21 +85,21 @@ export class SignupComponent implements OnInit {
     if (this.id != 0) {
       this._userService.updateUser(this.id, user).subscribe({
         next: () => {
-        this.toastr.success(`Actualizaste tu usuario`, 'Usuario actualizado');
-        this.router.navigate(['/']);
+          this.toastr.success(`Actualizaste tu usuario`, 'Usuario actualizado');
+          this.router.navigate(['/']);
         },
         error: (err: HttpErrorResponse) => {
-          this.toastr.error('Error al actualizar el usuario', 'Error!');
+          this.toastr.error(err.error.message, 'Error!');
         }
       });
     } else {
       this._userService.signUp(user).subscribe({
         next: () => {
-        this.toastr.success(`Te registraste con exito`, 'Usuario registrado');
-        this.router.navigate(['/login']);
+          this.toastr.success(`Te registraste con exito`, 'Usuario registrado');
+          this.router.navigate(['/login']);
         },
         error: (err: HttpErrorResponse) => {
-          this.toastr.error('Error al registrar el usuario', 'Error!');
+          this.toastr.error(err.error.message, 'Error!');
         }
       });
     }

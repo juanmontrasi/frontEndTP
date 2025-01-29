@@ -1,7 +1,7 @@
 <div class="container">
 
   <form class="row g-3
-  " [formGroup]="formUser" (ngSubmit)="addUser()" >
+  " [formGroup]="formUser" (ngSubmit)="addUser()">
     <div class="col-8">
       <h2>{{ operacion }} Usuario</h2>
     </div>
@@ -23,7 +23,7 @@
     </div>
     <div class="col-12">
       <label for="inputTipoUsuario" class="form-label">Tipo de Usuario</label>
-      <select class="form-select" aria-label="Default select example" formControlName="tipo_usuario"> 
+      <select class="form-select" aria-label="Default select example" formControlName="tipo_usuario">
         <option selected>Seleccione el tipo de usuario</option>
         <option value="1">Administrador</option>
         <option value="2">Cliente</option>
@@ -31,7 +31,7 @@
     </div>
     <div class="col-12">
       <label for="inputEmail" class="form-label">Email</label>
-      <input id="user-email" type="text" class="form-control" formControlName="email"> 
+      <input id="user-email" type="text" class="form-control" formControlName="email">
       <span *ngIf="formUser.get('email')?.hasError('required') && formUser.get('email')?.touched">
         El campo Email <strong>es requerido</strong>
       </span>
@@ -44,6 +44,9 @@
       <input type="text" class="form-control" formControlName="phone">
       <span *ngIf="formUser.get('phone')?.hasError('required') && formUser.get('phone')?.touched">
         El campo Telefono <strong>es requerido</strong>
+      </span>
+      <span *ngIf="formUser.get('phone')?.hasError('pattern')">
+        El campo Telefono <strong>no tiene un formato válido</strong>.
       </span>
     </div>
     <div class="col-md-6">
