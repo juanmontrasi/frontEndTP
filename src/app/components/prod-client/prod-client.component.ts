@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from '../../interfaces/product.js';
 import { Router } from '@angular/router';
-import { ProductsService } from '../../services/products.service.js';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';

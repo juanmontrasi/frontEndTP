@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from '../../interfaces/user.js';
 import { UserService } from '../../services/user.service.js';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { SpinnerComponent } from "../../shared/spinner/spinner.component";
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 

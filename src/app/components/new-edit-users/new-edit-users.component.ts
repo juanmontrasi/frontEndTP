@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SpinnerComponent } from '../../shared/spinner/spinner.component.js';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -11,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-new-edit-users',
   standalone: true,
-  imports: [SpinnerComponent, FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './new-edit-users.component.html',
   styleUrl: './new-edit-users.component.scss'
 })

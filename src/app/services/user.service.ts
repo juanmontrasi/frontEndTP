@@ -28,7 +28,9 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.myAppUrl + this.myApiUrl)
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<User[]>(this.myAppUrl + this.myApiUrl, { headers });
   }
 
   deleteUser(id: number): Observable<void> {

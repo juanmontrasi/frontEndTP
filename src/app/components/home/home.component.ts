@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductsService } from '../../services/products.service.js';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../interfaces/product.js';
 import { CartService } from '../../services/cart.service.js';
+import { ProductService } from '../../services/product.service.js';
 
 @Component({
   selector: 'app-home',
@@ -17,15 +17,15 @@ import { CartService } from '../../services/cart.service.js';
 export class HomeComponent {
 
   listProd: any[] = [];
-  cartProducts: Product[] = []; 
+  cartProducts: Product[] = [];
 
   constructor(
-    private router: Router, 
-    private _productService: ProductsService, 
-    private toastr: ToastrService, 
+    private router: Router,
+    private _productService: ProductService,
+    private toastr: ToastrService,
     private _cartService: CartService) {
 
-   }
+  }
 
   ngOnInit(): void {
     this.getProducts();

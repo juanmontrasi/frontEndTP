@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { OrdersService } from './orders.service.js';
@@ -18,7 +18,9 @@ export class OrdersProductsService {
   }
 
   createOrderProduct(orderProduct: OrderProduct): Observable<any> {
-    return this.http.post(this.myAppUrl + this.myApiUrl, orderProduct);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.myAppUrl + this.myApiUrl, orderProduct, { headers });
   }
 
 }

@@ -6,19 +6,17 @@ import { UserService } from '../../services/user.service.js';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SpinnerComponent } from "../../shared/spinner/spinner.component";
-import { ProductsService } from '../../services/products.service.js';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, SpinnerComponent],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 
-  constructor(private toastr: ToastrService, private _userService: UserService, private router: Router, private _productsService: ProductsService) { }
+  constructor(private toastr: ToastrService, private _userService: UserService, private router: Router) { }
 
   userName: string = '';
   password: string = '';
