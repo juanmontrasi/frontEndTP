@@ -56,7 +56,7 @@ git clone https://github.com/juanmontrasi/backEndTP.git
   ng serve
   ```
 # 4. Imagenes de productos
-Para agregar una imagen a un producto, esta deberá estar ubicada en la carpeta src\assets\products, y su nombre deberá ser ingresado en el campo "imagen".
+Para agregar una imagen a un producto, esta deberá estar ubicada en la carpeta src\assets\products, y su nombre deberá ser ingresado en el campo "imagen" junto con su extensión.
 # 5. Checkout
 Cuando se complete el proceso de checkout, se enviará un correo electrónico con el recibo. Es fundamental asegurarse de que la dirección de correo ingresada al registrar un usuario sea válida y esté en funcionamiento.
 ## Tema
