@@ -31,9 +31,10 @@ git clone https://github.com/juanmontrasi/backEndTP.git
   ```
   npm install
   ```
-- Configura la base de datos. Actualiza los datos en el archivo `.env`
+- Configura la base de datos. Actualiza los datos en el archivo `.env` entre comillas simples
   ```
-  PASSWORD=*tu contraseña*
+  BDUSERNAME=tu_usuario_de_base_de_datos
+  BDPASSWORD=tu_clave_de_base_de_datos
   ```
 - Creación de la base de datos
   Ejecutar el schema en MySQL Workbench: [Base de datos](https://github.com/juanmontrasi/backEndTP/blob/master/tp_desarrollo_mod.sql)
