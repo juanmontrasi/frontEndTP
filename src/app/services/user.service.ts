@@ -22,13 +22,15 @@ export class UserService {
 
 
   constructor(private http: HttpClient, private toastr: ToastrService, private _orderService: OrdersService) {
-    this.myAppUrl = 'http://localhost:7272/';
+    this.myAppUrl = 'https://backendtp-production.up.railway.app/';
     this.myApiUrl = 'users';
 
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.myAppUrl + this.myApiUrl)
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<User[]>(this.myAppUrl + this.myApiUrl, { headers });
   }
 
   deleteUser(id: number): Observable<void> {

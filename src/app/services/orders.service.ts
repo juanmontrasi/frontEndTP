@@ -12,7 +12,7 @@ export class OrdersService {
   private myApiUrl: string;
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
-    this.myAppUrl = 'http://localhost:7272/';
+    this.myAppUrl = 'https://backendtp-production.up.railway.app/';
     this.myApiUrl = 'orders';
 
   }
@@ -31,7 +31,7 @@ export class OrdersService {
   getOrders(): Observable<Order[]> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Order[]>(this.myAppUrl + this.myApiUrl, {headers});
+    return this.http.get<Order[]>(this.myAppUrl + this.myApiUrl, { headers });
   }
 
   deleteOrder(id: number): Observable<void> {

@@ -13,7 +13,7 @@ export class ProductService {
   private myApiUrl: string;
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
-    this.myAppUrl = 'http://localhost:7272/';
+    this.myAppUrl = 'https://backendtp-production.up.railway.app/';
     this.myApiUrl = 'products';
 
   }
@@ -21,7 +21,7 @@ export class ProductService {
   createProduct(product: Product): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(this.myAppUrl + this.myApiUrl, product, {headers});
+    return this.http.post(this.myAppUrl + this.myApiUrl, product, { headers });
   }
 
   getProductsByName(nombre: string): Observable<Product[]> {
@@ -35,7 +35,7 @@ export class ProductService {
   deleteProduct(id: number): Observable<void> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`, {headers})
+    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`, { headers })
   }
 
   getProductById(id: number): Observable<any> {
@@ -45,8 +45,8 @@ export class ProductService {
   updateProduct(id: number, product: Product): Observable<void> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, product, {headers})
+    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, product, { headers })
   }
 
-  
+
 }
