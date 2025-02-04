@@ -35,6 +35,8 @@ git clone https://github.com/juanmontrasi/backEndTP.git
   ```
   BDUSERNAME=tu_usuario_de_base_de_datos
   BDPASSWORD=tu_clave_de_base_de_datos
+  BDHOST=tu_host_de_base_de_datos
+  BDPORT=tu_puerto_de_base_de_datos
   ```
 - Creación de la base de datos
   Ejecutar el schema en MySQL Workbench: [Base de datos](https://github.com/juanmontrasi/backEndTP/blob/master/tp_desarrollo_mod.sql)
