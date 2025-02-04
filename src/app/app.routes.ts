@@ -10,20 +10,22 @@ import { CartComponent } from './components/cart/cart.component.js';
 import { ProductsComponent } from './components/products/products.component.js';
 import { NewEditProductsComponent } from './components/new-edit-products/new-edit-products.component.js';
 import { OrdersComponent } from './components/orders/orders.component.js';
+import { UserPanelComponent } from './components/user-panel/user-panel.component';
 
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, },
   { path: 'signup', component: SignupComponent },
+  { path: 'editCurrentUser/:id', component: SignupComponent },
   { path: 'products', component: ProductsComponent, canActivate: [AuthService] },
   { path: 'newProduct', component: NewEditProductsComponent, canActivate: [AuthService] },
   { path: 'editProduct/:id', component: NewEditProductsComponent, canActivate: [AuthService] },
-  // { path: 'newService', component: NewEditServicesComponent },
-  { path: 'users', component: UsersComponent, canActivate: [AuthService] },
+  { path: 'users', component: UsersComponent , canActivate: [AuthService]},
   { path: 'newUser', component: NewEditUsersComponent, canActivate: [AuthService] },
   { path: 'editUser/:id', component: NewEditUsersComponent, canActivate: [AuthService] },
   { path: 'orders', component: OrdersComponent, canActivate: [AuthService] },
   { path: 'prodClients', component: ProdClientComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'userPanel', component: UserPanelComponent },
   { path: '**', component: HomeComponent }
 ];

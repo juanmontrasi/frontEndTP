@@ -13,11 +13,15 @@ import { Order } from '../../interfaces/order.js';
 import { OrdersProductsService } from '../../services/orders-products.service.js';
 import { OrderProduct } from '../../interfaces/order-product.js';
 import { ProductService } from '../../services/product.service.js';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CheckoutService } from '../../services/checkout.service.js';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, NgxSpinnerModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -25,7 +29,17 @@ export class CartComponent implements OnInit {
   cartProducts: Product[] = [];
   cartProductsRepeated: Product[] = [];
   id_pedidos: number = 0;
-  constructor(private _ordersProduct: OrdersProductsService, private toastr: ToastrService, private userService: UserService, private _productService: ProductService, private _cartService: CartService, private _ordersService: OrdersService, private router: Router,) { }
+  order: any = {};
+  constructor(
+    private _checkoutService: CheckoutService,
+    private _ordersProduct: OrdersProductsService,
+    private toastr: ToastrService,
+    private userService: UserService,
+    private _productService: ProductService,
+    private _cartService: CartService,
+    private _ordersService: OrdersService,
+    private router: Router,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.cartProductsRepeated = this._cartService.getCartProducts();
@@ -37,6 +51,7 @@ export class CartComponent implements OnInit {
       this.toastr.error('Inicie sesión para continuar', 'Error');
       return;
     }
+    this.spinner.show();
 
     const id_usuario = this.userService.getUserId();
     if (id_usuario === 0) {
@@ -46,13 +61,10 @@ export class CartComponent implements OnInit {
 
     const total = this.getTotal();
 
-    if (!this.validateStock()) {
-      return;
-    }
-
     this._ordersService.createOrder(id_usuario, total).subscribe({
       next: (response: any) => {
         const order = response as Order;
+        this.order = order;
         const id_pedidos = order.id_pedidos!;
         this.setIdPedido(id_pedidos);
 
@@ -60,7 +72,7 @@ export class CartComponent implements OnInit {
         from(this.cartProducts)
           .pipe(
             concatMap((product) => {
-              const cantidad = this.cantidadProd(product);
+              const cantidad = this.quantityProduct(product);
               const subtotal = cantidad * product.precio;
               const orderProduct: OrderProduct = {
                 id_pedidos: id_pedidos,
@@ -78,57 +90,64 @@ export class CartComponent implements OnInit {
           )
           .subscribe({
             next: (response) => {
-
+              console.log('producto agregado')
             },
-            error: (errorMessage) => {
-              this.toastr.error(errorMessage, 'Error al añadir un producto al pedido');
+            error: (err) => {
+              this.toastr.error(err.error.message, 'Error');
+              this.spinner.hide();
             },
             complete: () => {
-              this.finalizeOrder();
+
+              this.finalizeOrder(this.order);
             },
           });
       },
-      error: (errorMessage) => {
-        console.error(errorMessage);
-        this.toastr.error('Error al crear el pedido');
+      error: () => {
+        if (this.getTotal() === 0) {
+          this.toastr.error('No hay productos en el carrito', 'Error');
+        } else {
+          this.toastr.error('Error al crear el pedido');
+        }
+        this.spinner.hide();
       },
     });
   }
 
-  finalizeOrder() {
-    localStorage.removeItem('cart');
-    this.cartProducts = [];
-    this.toastr.success('Estamos procesando tu pedido', 'Pedido Creado', { timeOut: 10000 });
+  finalizeOrder(order: Order) {
+    this._checkoutService.sendEmail(order).subscribe({
+      next: () => {
+        localStorage.removeItem('cart');
+        this.cartProducts = [];
+        setTimeout(() => {
+          this.spinner.hide();
+          this.toastr.success('Estamos procesando tu pedido', 'Pedido Creado', { timeOut: 10000 });
+          this.router.navigate(['/home']);
+        }, 5000);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.toastr.error(err.error.message, 'Error');
+        this.spinner.hide();
+      },
+    });
   }
 
   setIdPedido(id: number) {
     this.id_pedidos = id;
-
   }
 
   modifyStock(id: number, cant: number) {
     this._productService.getProductById(id).subscribe((product: any) => {
-      if (product[0].stock === 0) {
+      if (product[0].stock <= 0) {
         this.toastr.error('No hay stock disponible', 'Error');
         return;
       } else {
         product[0].stock = product[0].stock - cant;
         this._productService.updateProduct(id, product[0]).subscribe(() => {
-          console.log('Stock actualizado');
+
         });
       }
 
     })
-  }
-
-  validateStock(): boolean {
-    for (const product of this.cartProducts) {
-      if (product.stock < this.cantidadProd(product)) {
-        this.toastr.error('No hay stock disponible de ' + product.nombre_producto, 'Error');
-        return false;
-      }
-    }
-    return true;
   }
 
   setCartProducts() {
@@ -141,7 +160,7 @@ export class CartComponent implements OnInit {
 
   }
 
-  cantidadProd(product: Product) {
+  quantityProduct(product: Product) {
     product.cantidad = this.cartProductsRepeated.filter((prod) => prod.id_productos == product.id_productos).length;
     return product.cantidad;
   }
@@ -161,12 +180,12 @@ export class CartComponent implements OnInit {
 
   }
 
-  SumCant(product: Product) {
+  addProduct(product: Product) {
     this.cartProductsRepeated.push(product);
     localStorage.setItem('cart', JSON.stringify(this.cartProductsRepeated));
   }
 
-  ResCant(product: Product) {
+  subtractProduct(product: Product) {
     const sizeProd = this.cartProductsRepeated.filter(prod => prod.id_productos === product.id_productos).length;
     if (sizeProd === 0) {
       this.cartProducts = this.cartProducts.filter(prod => prod.id_productos !== product.id_productos);

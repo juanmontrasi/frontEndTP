@@ -13,7 +13,7 @@ export class OrdersProductsService {
   private myApiUrl: string;
 
   constructor(private http: HttpClient, private toastr: ToastrService, private _orderService: OrdersService) {
-    this.myAppUrl = 'http://localhost:1234/';
+    this.myAppUrl = 'http://localhost:7272/';
     this.myApiUrl = 'orders/products';
   }
 

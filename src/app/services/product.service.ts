@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Product } from '../interfaces/product';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -13,13 +13,15 @@ export class ProductService {
   private myApiUrl: string;
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
-    this.myAppUrl = 'http://localhost:1234/';
+    this.myAppUrl = 'http://localhost:7272/';
     this.myApiUrl = 'products';
 
   }
 
   createProduct(product: Product): Observable<any> {
-    return this.http.post(this.myAppUrl + this.myApiUrl, product)
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.myAppUrl + this.myApiUrl, product, {headers});
   }
 
   getProductsByName(nombre: string): Observable<Product[]> {
@@ -31,7 +33,9 @@ export class ProductService {
   }
 
   deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`)
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`, {headers})
   }
 
   getProductById(id: number): Observable<any> {
@@ -39,29 +43,10 @@ export class ProductService {
   }
 
   updateProduct(id: number, product: Product): Observable<void> {
-    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, product)
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, product, {headers})
   }
 
-
-
-  // isAuthenticated(): boolean {
-  //   // Verificar si el token existe en localStorage
-  //   return !!localStorage.getItem('token');
-  // }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error); // Loguea el error
-      this.toastr.error('Error en la operación', 'Error!');
-      return of(result as T); // Devolver un valor seguro
-    };
-  }
-
-  msjError(event: HttpErrorResponse) {
-    if (event.error.msg) {
-      this.toastr.error(event.error.msg, 'Error!');
-    } else {
-      this.toastr.error('Error en el ingreso de datos', 'Error!');
-    }
-  }
+  
 }

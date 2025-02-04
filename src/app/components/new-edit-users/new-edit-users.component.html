@@ -1,10 +1,9 @@
 <div class="container">
 
   <form class="row g-3
-  " [formGroup]="formUser" (ngSubmit)="addUser()" *ngIf="!loading">
+  " [formGroup]="formUser" (ngSubmit)="addUser()">
     <div class="col-8">
       <h2>{{ operacion }} Usuario</h2>
-
     </div>
 
     <div class="col-md-6">
@@ -24,14 +23,20 @@
     </div>
     <div class="col-12">
       <label for="inputTipoUsuario" class="form-label">Tipo de Usuario</label>
-      <input type="number" [(ngModel)]="tipo_usuario" class="form-control" [ngModelOptions]="{standalone: true}" min="1"
-        max="2">
+      <select class="form-select" aria-label="Default select example" formControlName="tipo_usuario">
+        <option selected>Seleccione el tipo de usuario</option>
+        <option value="1">Administrador</option>
+        <option value="2">Cliente</option>
+      </select>
     </div>
     <div class="col-12">
       <label for="inputEmail" class="form-label">Email</label>
-      <input type="text" class="form-control" formControlName="email">
+      <input id="user-email" type="text" class="form-control" formControlName="email">
       <span *ngIf="formUser.get('email')?.hasError('required') && formUser.get('email')?.touched">
         El campo Email <strong>es requerido</strong>
+      </span>
+      <span *ngIf="formUser.get('email')?.hasError('email')">
+        El campo Email <strong>no tiene un formato válido</strong>.
       </span>
     </div>
     <div class="col-12">
@@ -39,6 +44,9 @@
       <input type="text" class="form-control" formControlName="phone">
       <span *ngIf="formUser.get('phone')?.hasError('required') && formUser.get('phone')?.touched">
         El campo Telefono <strong>es requerido</strong>
+      </span>
+      <span *ngIf="formUser.get('phone')?.hasError('pattern')">
+        El campo Telefono <strong>no tiene un formato válido</strong>.
       </span>
     </div>
     <div class="col-md-6">
@@ -66,5 +74,4 @@
       <button type="submit" [disabled]="formUser.invalid" class="btn btn-primary">{{operacion}}</button>
 
     </div>
-    <app-spinner *ngIf="loading"></app-spinner>
   </form>

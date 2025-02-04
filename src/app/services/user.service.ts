@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { User } from '../interfaces/user';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,7 @@ export class UserService {
 
 
   constructor(private http: HttpClient, private toastr: ToastrService, private _orderService: OrdersService) {
-    this.myAppUrl = 'http://localhost:1234/';
+    this.myAppUrl = 'http://localhost:7272/';
     this.myApiUrl = 'users';
 
   }
@@ -32,7 +32,9 @@ export class UserService {
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`)
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`, { headers });
   }
 
   getUserById(id: number): Observable<any> {
@@ -40,7 +42,9 @@ export class UserService {
   }
 
   updateUser(id: number, user: User): Observable<void> {
-    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, user)
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, user, { headers });
   }
 
 

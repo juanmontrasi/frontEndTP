@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service.js';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
@@ -40,10 +41,17 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    this._productService.deleteProduct(id).subscribe(() => {
-      this.getProducts();
-      this.toastr.warning('Product deleted successfully', 'Product deleted');
-    });
+    if (confirm('¿Estás seguro de eliminar este producto?')) {
+      this._productService.deleteProduct(id).subscribe({
+        next: () => {
+          this.getProducts();
+        this.toastr.warning('Producto eliminado correctamente', 'Producto eliminado');
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastr.error(error.error.message, 'Error');
+      }
+      });
+    }
+    
   }
-
 }

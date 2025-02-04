@@ -15,8 +15,9 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn: boolean = false;
   tipo_usuario?: number;
+  id_usuario?: number;
 
-  constructor(public userService: UserService, private router: Router) { }
+  constructor(public _userService: UserService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -27,7 +28,13 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    this.userService.logOut();
+    this._userService.logOut();
     this.router.navigate(['/']);
+  }
+
+  updateUser() {
+    this.id_usuario = this._userService.getUserId();
+    this.router.navigate(['userPanel'])    
+    // this.router.navigate([`editCurrentUser/${this.id_usuario}`]);
   }
 }

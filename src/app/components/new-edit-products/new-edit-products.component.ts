@@ -32,7 +32,6 @@ export class NewEditProductsComponent implements OnInit {
       image: ['', Validators.required]
     });
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
-    console.log(aRouter.snapshot.paramMap.get('id'));
   }
   ngOnInit(): void {
     if (this.id != 0) {
@@ -44,7 +43,6 @@ export class NewEditProductsComponent implements OnInit {
 
   operacion: string = 'Agregar ';
   id: number;
-  loading: boolean = false;
   formProduct: FormGroup;
   productName: string = '';
   description: string = '';
@@ -54,10 +52,7 @@ export class NewEditProductsComponent implements OnInit {
 
 
   getProduct(id: number) {
-    this.loading = true;
     this._productService.getProductById(id).subscribe((data: any) => {
-      this.loading = false;
-      console.log(data[0].nombre);
       this.formProduct.patchValue({
         productName: data[0].nombre_producto,
         description: data[0].desc_producto,
@@ -79,22 +74,29 @@ export class NewEditProductsComponent implements OnInit {
 
     product.id_productos = this.id;
     if (this.id != 0) {
-      console.log('actualizar');
-      this.loading = true;
-      this._productService.updateProduct(this.id, product).subscribe(() => {
-        this.toastr.success(`El producto fue actualizado con exito`, 'Producto actualizado');
-        this.router.navigate(['/products']);
+      this._productService.updateProduct(this.id, product).subscribe({
+        next: () => {
+          this.toastr.success(`El producto fue actualizado con exito`, 'Producto actualizado');
+          this.router.navigate(['/products']);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(error.error.message, 'Producto no actualizado');
+          this.router.navigate(['/products']);
+        }
+        
       });
     } else {
-
-      console.log('agregar');
-      this.loading = true;
-      this._productService.createProduct(product).subscribe(() => {
-        console.log('agregar');
-        this.toastr.success(`El product fue registrado con exito`, 'Product registrado');
-        this.router.navigate(['/products']);
-        this.loading = false;
+      this._productService.createProduct(product).subscribe({
+        next: () => {
+          this.toastr.success(`El product fue registrado con exito`, 'Product registrado');
+          this.router.navigate(['/products']);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(error.error.message, 'Product no registrado');
+          this.router.navigate(['/products']);
+        }
       });
+      ;
     }
 
 

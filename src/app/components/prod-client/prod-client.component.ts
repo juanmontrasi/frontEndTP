@@ -22,6 +22,7 @@ export class ProdClientComponent {
   listProd: any[] = [];
   formSearch: FormGroup;
   cartProducts: Product[] = [];
+  selectedProduct: any = {}
 
   constructor(
     private router: Router,
@@ -51,7 +52,6 @@ export class ProdClientComponent {
   getProdByName() {
     this._productService.getProductsByName(this.formSearch.value.productName).subscribe(products => {
       this.listProd = products;
-      console.log('Productos encontrados:', this.listProd);
     });
   }
 
@@ -62,7 +62,10 @@ export class ProdClientComponent {
       this._cartService.addProductToCart(product);
       this.toastr.success('Producto agregado al carrito', 'Producto agregado');
     }
+  }
 
+  setProduct(product: Product) {
+    this.selectedProduct = product;
   }
 
 

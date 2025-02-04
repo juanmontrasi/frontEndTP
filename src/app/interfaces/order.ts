@@ -3,4 +3,5 @@ export interface Order {
   fecha_pedido: Date;
   total: number;
   id_cliente: number;
+  estado: string;
 }
