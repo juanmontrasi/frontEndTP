@@ -31,15 +31,15 @@ export class CartComponent implements OnInit {
   id_pedidos: number = 0;
   order: any = {};
   constructor(
-    private _checkoutService: CheckoutService , 
-    private _ordersProduct: OrdersProductsService, 
-    private toastr: ToastrService, 
-    private userService: UserService, 
-    private _productService: ProductService, 
-    private _cartService: CartService, 
-    private _ordersService: OrdersService, 
+    private _checkoutService: CheckoutService,
+    private _ordersProduct: OrdersProductsService,
+    private toastr: ToastrService,
+    private userService: UserService,
+    private _productService: ProductService,
+    private _cartService: CartService,
+    private _ordersService: OrdersService,
     private router: Router,
-    private spinner:NgxSpinnerService) { }
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.cartProductsRepeated = this._cartService.getCartProducts();
@@ -47,18 +47,18 @@ export class CartComponent implements OnInit {
   }
 
   Proceed() {
-    this.spinner.show();
     if (!this.userService.isAuthenticated()) {
       this.toastr.error('Inicie sesión para continuar', 'Error');
       return;
     }
+    this.spinner.show();
 
     const id_usuario = this.userService.getUserId();
     if (id_usuario === 0) {
       this.toastr.error('Error al obtener el id del usuario', 'Error');
       return;
     }
-              
+
     const total = this.getTotal();
 
     this._ordersService.createOrder(id_usuario, total).subscribe({
@@ -97,13 +97,13 @@ export class CartComponent implements OnInit {
               this.spinner.hide();
             },
             complete: () => {
-              
+
               this.finalizeOrder(this.order);
             },
           });
       },
       error: () => {
-        if(this.getTotal() === 0) {
+        if (this.getTotal() === 0) {
           this.toastr.error('No hay productos en el carrito', 'Error');
         } else {
           this.toastr.error('Error al crear el pedido');
@@ -115,7 +115,7 @@ export class CartComponent implements OnInit {
 
   finalizeOrder(order: Order) {
     this._checkoutService.sendEmail(order).subscribe({
-      next: () => {      
+      next: () => {
         localStorage.removeItem('cart');
         this.cartProducts = [];
         setTimeout(() => {
@@ -142,8 +142,8 @@ export class CartComponent implements OnInit {
         return;
       } else {
         product[0].stock = product[0].stock - cant;
-        this._productService.updateProduct(id, product[0]).subscribe(() => {  
-          
+        this._productService.updateProduct(id, product[0]).subscribe(() => {
+
         });
       }
 

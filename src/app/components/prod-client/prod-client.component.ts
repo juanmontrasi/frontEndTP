@@ -64,7 +64,7 @@ export class ProdClientComponent {
     }
   }
 
-  setProduct(product: Product){
+  setProduct(product: Product) {
     this.selectedProduct = product;
   }
 

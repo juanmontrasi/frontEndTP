@@ -35,8 +35,10 @@
         <td>{{user.apellido}}</td>
         <td>{{user.direccion}}</td>
         <td>
-          <button type="submit" class="btn btn-info" routerLink="/editUser/{{user.id_usuarios}}">Editar</button>
-          <button (click)="deleteUser(user.id_usuarios!)" type="submit" class="btn btn-secondary ms-2">Borrar</button>
+          <div class="d-flex">
+            <button type="submit" class="btn btn-info" routerLink="/editUser/{{user.id_usuarios}}">Editar</button>
+            <button (click)="deleteUser(user.id_usuarios!)" type="submit" class="btn btn-secondary ms-2">Borrar</button>
+          </div>
         </td>
       </tr>
 
