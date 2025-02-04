@@ -55,7 +55,8 @@ git clone https://github.com/juanmontrasi/backEndTP.git
   ```
   ng serve
   ```
-
+# 4. Checkout
+Cuando se complete el proceso de checkout, se enviará un correo electrónico con el recibo. Es fundamental asegurarse de que la dirección de correo ingresada al registrar un usuario sea válida y esté en funcionamiento.
 ## Tema
 Este proyecto tiene como objetivo desarrollar una tienda en línea especializada en componentes de computadora, con funcionalidades como un carrito de compras y un sistema de búsqueda avanzada que permite aplicar múltiples filtros. Además, incluirá una sección de administración para gestionar eficientemente usuarios, productos y pedidos. Por último, se implementará un sistema de inicio de sesión (LogIn) que diferenciará entre dos tipos de usuarios: clientes y administradores, garantizando un manejo adecuado de permisos y accesos.
 
