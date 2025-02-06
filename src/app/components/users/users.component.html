@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="title">
+    <h1>Listado de Usuarios</h1>
+    <button type="submit" class="btn btn-primary" routerLink="/newUser">Agregar
+      Usuario</button>
+  </div>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <input class="form-control me-2" placeholder="Search" aria-label="Busqueda"
+        [(ngModel)]="searchInput.nombre_usuario" placeholder="Busqueda">
+    </div>
+  </nav>
+  <table *ngIf="listUsers.length > 0" class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre de Usuario</th>
+        <th scope="col">Tipo de Usuario</th>
+        <th scope="col">Email</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Dirección</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of listUsers | filterBy: searchInput | paginate: { itemsPerPage: 5, currentPage: p }">
+        <td>{{user.id_usuarios}}</td>
+        <td>{{user.nombre_usuario}}</td>
+        <td>{{(user.tipo_usuario === 1) ? "Administrador" : "Cliente"}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.telefono}}</td>
+        <td>{{user.nombre}}</td>
+        <td>{{user.apellido}}</td>
+        <td>{{user.direccion}}</td>
+        <td>
+          <div class="d-flex">
+            <button type="submit" class="btn btn-info" routerLink="/editUser/{{user.id_usuarios}}">Editar</button>
+            <button (click)="deleteUser(user.id_usuarios!)" type="submit" class="btn btn-secondary ms-2">Borrar</button>
+          </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  <h5 *ngIf="listUsers.length == 0">
+    No hay Usuarios en el sistema
+  </h5>
+
+
+</div>

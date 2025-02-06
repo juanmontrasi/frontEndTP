@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        <h1>Panel de usuario</h1>
+        <div class="container-cards">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><strong>Nombre de Usuario: </strong>{{user.nombre_usuario}}</h5>
+                <p class="card-text"><strong>Email: </strong> {{user.email}}</p>
+                <p class="card-text"><strong>Telefono: </strong> {{user.telefono}}</p>
+                <p class="card-text"><strong>Nombre: </strong> {{user.nombre}}</p>
+                <p class="card-text"><strong>Apllido: </strong> {{user.apellido}}</p>
+                <p class="card-text"><strong>Direccion: </strong> {{user.direccion}}</p>
+              </div>
+              <button class="btn btn-primary" (click)="editUser()">Editar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

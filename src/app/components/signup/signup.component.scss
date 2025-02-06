@@ -1,5 +1,14 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: first baseline;
+  min-height: 130vh;
+}
+
+
+
 .g-3 {
-  width: 900px;
+  width: 40%;
   padding: 10px;
 
 }

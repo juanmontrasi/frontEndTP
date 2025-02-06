@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="container-busqueda">
+    <div class="row">
+      <div class="col-12">
+        <h1>Productos</h1>
+      </div>
+    </div>
+    <form class="d-flex" role="search" [formGroup]="formSearch" (ngSubmit)="getProdByName()">
+      <input class="form-control me-2" placeholder="Buscar" aria-label="Search" formControlName="productName">
+      <button class="btn btn-primary" type="submit">Buscar</button>
+      <button class="btn btn-outline-secondary" type="button" style="margin-left: 9px;"
+        (click)="getProducts()">Limpiar</button>
+    </form>
+  </div>
+
+  <div class="container-cards">
+    <div class="card" style="width: 18rem;" *ngFor="let product of listProd" (click)="setProduct(product)">
+      <div class="card-body" data-bs-toggle="modal" data-bs-target="#productModal">
+        <img [src]="'assets/products/' + product.imagen" class="card-img-top"
+          [alt]="'assets/products/' + product.imagen">
+        <h5 class="card-title">{{ product.nombre_producto }}</h5>
+        <p class="card-text"><strong>Precio:</strong> {{ product.precio | currency:'USD' }}</p>
+        <a class="btn btn-danger" *ngIf="product.stock<= 10">Sin Stock</a>
+      </div>
+      <button id="cartButton" (click)="addProdToCart(product); $event.stopImmediatePropagation()"
+        class="btn btn-primary" *ngIf="product.stock > 10">Agregar al Carrito</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalTitle">{{selectedProduct.nombre_producto}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="card-text"><strong>Descripción:</strong> {{selectedProduct.desc_producto}}</p>
+        <p class="card-text"><strong>Precio:</strong> {{ selectedProduct.precio | currency:'USD' }}</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="addProdToCart(selectedProduct) " class="btn btn-primary"
+          *ngIf="selectedProduct.stock > 10">Agregar al Carrito</button>
+      </div>
+    </div>
+  </div>
+</div>

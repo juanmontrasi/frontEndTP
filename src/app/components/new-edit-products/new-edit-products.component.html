@@ -1,0 +1,41 @@
+<div class="container">
+
+  <form class="row g-3" [formGroup]="formProduct" (ngSubmit)="addProduct()">
+    <div class="col-8">
+      <h2>{{ operacion }} Producto</h2>
+
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputProducto" name="productName" class="form-label">Nombre de
+        producto</label>
+      <input type="text" class="form-control" formControlName="productName">
+      <span *ngIf="formProduct.get('productName')?.hasError('required') && formProduct.get('productName')?.touched">
+        El campo Nombre de Producto <strong>es requerido</strong>
+      </span>
+    </div>
+    <div class="col-md-6">
+      <label for="inputDescripcion" class="form-label">Descripcion</label>
+      <input type="description" class="form-control" formControlName="description">
+      <span *ngIf="formProduct.get('description')?.hasError('required') && formProduct.get('description')?.touched">
+        El campo Descripcion <strong>es requerido</strong>
+      </span>
+    </div>
+    <div class="col-12">
+      <label for="inputPrecio" class="form-label">Precio</label>
+      <input type="number" formControlName="price" class="form-control">
+    </div>
+    <div class="col-12">
+      <label for="inputStock" class="form-label">Stock</label>
+      <input type="number" formControlName="quant" class="form-control">
+    </div>
+    <div class="col-12">
+      <label for="inputImagen" class="form-label">Imagen</label>
+      <input type="text" formControlName="image" class="form-control">
+    </div>
+
+    <div class="col-12">
+      <button type="submit" [disabled]="formProduct.invalid" class="btn btn-primary">{{operacion}}</button>
+
+    </div>
+  </form>

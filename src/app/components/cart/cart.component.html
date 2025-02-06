@@ -1,0 +1,46 @@
+<div class="container">
+
+
+  <div class="container-busqueda">
+    <div class="row">
+      <div class="col-12">
+        <h1>Carrito</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-container">
+    <div class="cart-content">
+      <div class="card" *ngFor="let product of cartProducts">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.nombre_producto }}</h5>
+          <p class="card-text">{{ product.desc_producto }}</p>
+          <p class="card-text"><strong>Precio:</strong> {{ product.precio}}</p>
+          <p class="card-text">Cantidad {{quantityProduct(product)}}</p>
+          <a class="btn btn-primary" (click)="DeleteItem(product)">Eliminar</a>
+          <button type="button" [disabled]="product.cantidad! >= 10" (click)="addProduct(product)"
+            class="btn btn-secondary" style="margin-left: 10px;">+</button>
+          <button type="button" (click)="subtractProduct(product)" class="btn btn-secondary"
+            style="margin-left: 10px;">-</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Resumen del Pedido</h5>
+          <p class="card-text">Total de productos: {{cartProductsRepeated.length}}</p>
+          <p class="card-text"><strong>Total:</strong> {{getTotal()}} </p>
+          <button type="button" class="btn btn-primary" (click)="Proceed()">Realizar pedido</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff"
+    type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Procesando el pedido </p>
+  </ngx-spinner>
+
+</div>

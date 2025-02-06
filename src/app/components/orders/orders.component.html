@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="title">
+    <h1>Listado de Pedidos</h1>
+    <!-- <button type="submit" class="btn btn-primary" routerLink="/newProduct">Agregar
+      Pedido</button> -->
+  </div>
+  <nav class="d-flex" style="margin-bottom: 10px;">
+    <div class="container-fluid">
+      <input class="form-control " placeholder="Search" aria-label="Busqueda" [(ngModel)]="searchInput.fecha_pedido"
+        placeholder="Busqueda por Fecha">
+    </div>
+    <div class="container-fluid">
+      <input class="form-control" placeholder="Search" aria-label="Busqueda" [(ngModel)]="searchInput.Usuario.email"
+        placeholder="Busqueda por Email">
+    </div>
+  </nav>
+  <table *ngIf="listOrders.length > 0" class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id Pedido</th>
+        <th scope="col">Fecha Pedido</th>
+        <th scope="col">Total</th>
+        <th scope="col">Email Cliente</th>
+        <th scope="col">Productos</th>
+        <th scope="col">Estado Pago</th>
+        <th scope="col">Estado Pedido</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of listOrders | filterBy: searchInput | paginate: { itemsPerPage: 5, currentPage: p }">
+        <td>{{order.id_pedidos}}</td>
+        <td>{{order.fecha_pedido}}</td>
+        <td>{{order.total}}</td>
+        <td>{{order.Usuario.email}}</td>
+        <td>{{listProducts(order.productos_pedidos)}}</td>
+        <td>
+          <button (click)="changeStatePayment(order.id_pedidos, order)" type="button"
+            [ngClass]="order.estado_pago === 'No pago' ? 'btn btn-danger ms-2' : 'btn btn-success ms-2'">{{order.estado_pago}}</button>
+        </td>
+        <td>
+          <button (click)="changeState(order.id_pedidos, order)" type="button"
+            [ngClass]="order.estado === 'En proceso' ? 'btn btn-danger ms-2' : 'btn btn-success ms-2'">{{order.estado}}</button>
+        </td>
+        <td>
+          <button (click)="deleteOrder(order.id_pedidos)" type="submit" class="btn btn-secondary ms-2">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  <h5 *ngIf="listOrders.length == 0">
+    No hay Pedidos en el sistema
+  </h5>
+
+
+</div>

@@ -1,1 +1,65 @@
-<h1>Conoce nuestros productos destacados</h1>
+<div class="container">
+
+
+
+  <div class="container-nosotros">
+    <div class="card text-center mb-3"
+      style="width: 18rem; border: 1px solid #ccc; transition: transform 0.2s; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+      <div class="card-body" style="background-color: #f9f9f9; padding: 20px;">
+        <h5 class="card-title" style="font-weight: bold; color: #007bff;">¿Quiénes somos?</h5>
+        <p class="card-text" style="color: #333; line-height: 1.6;">
+          En Compra Gamer, somos un equipo apasionado de entusiastas de la tecnología dedicados a ofrecer lo mejor en
+          productos de computación. Nos enorgullecemos de ofrecer productos de marcas reconocidas, garantizando la
+          satisfacción y confianza de nuestros usuarios. ¡Únete a nuestra comunidad y descubre un mundo de
+          posibilidades en tecnología!
+        </p>
+      </div>
+    </div>
+
+
+    <div id="carouselExample" class="carousel slide">
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="assets\images\tienda de informatica ultima sur de tenerife-7.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="assets\images\mobiliario-para-tienda-de-informatica.webp" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="assets\images\murales-para-tienda-de-informatica.webp" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Conoce nuestros <strong>productos destacados
+        </strong></h1>
+    </div>
+
+
+
+    <div class="card" style="width: 18rem;" *ngFor="let product of listProd">
+      <img [src]="'assets/products/' + product.imagen" class="card-img-top" [alt]="'assets/products/' + product.imagen">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.nombre_producto }}</h5>
+        <p class="card-text">{{ product.desc_producto }}</p>
+        <p class="card-text"><strong>Precio:</strong> {{ product.precio | currency:'USD' }}</p>
+        <a (click)="addProdToCart(product)" class="btn btn-primary">Agregar al Carrito</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>

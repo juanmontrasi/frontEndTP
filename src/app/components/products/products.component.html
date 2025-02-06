@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="title">
+    <h1>Listado de Productos</h1>
+    <button type="submit" class="btn btn-primary" routerLink="/newProduct">Agregar
+      Producto</button>
+  </div>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <input class="form-control me-2" placeholder="Search" aria-label="Busqueda"
+        [(ngModel)]="searchInput.nombre_producto" placeholder="Busqueda">
+    </div>
+  </nav>
+  <table *ngIf="listProducts.length > 0" class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre del Producto</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Imagen</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of listProducts | filterBy: searchInput | paginate: { itemsPerPage: 5, currentPage: p }">
+        <td>{{product.id_productos}}</td>
+        <td>{{product.nombre_producto}}</td>
+        <td>{{product.desc_producto}}</td>
+        <td>{{product.stock}}</td>
+        <td>{{product.precio | currency:'USD'}}</td>
+        <td>{{product.imagen}}</td>
+        <td id="buttons">
+          <div class="d-flex">
+            <button type="submit" class="btn btn-info me-2" routerLink="/editProduct/{{product.id_productos}}">Editar</button>
+            <button (click)="deleteProduct(product.id_productos!)" type="submit" class="btn btn-secondary ms-2">Borrar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  <h5 *ngIf="listProducts.length == 0">
+    No hay Productos en el sistema
+  </h5>
+
+
+</div>
