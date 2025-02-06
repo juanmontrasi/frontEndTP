@@ -10,7 +10,7 @@ La aplicacion fue realizada con [Angular V18](https://v18.angular.dev/installati
 * 49416 - Chamas Agustina
 
 ### Demostración 
-Link al video de demostración: [Demo]([https://youtu.be/jz3Dch4fbfU])
+Link al video de demostración: [Demo](https://youtu.be/jz3Dch4fbfU)
 
 ### Repositorios
 * [frontend app] https://github.com/juanmontrasi/frontEndTP
