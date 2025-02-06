@@ -4,4 +4,5 @@ export interface Order {
   total: number;
   id_cliente: number;
   estado: string;
+  estado_pago: string;
 }

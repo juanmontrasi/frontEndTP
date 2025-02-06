@@ -16,7 +16,6 @@ import { Order } from '../../interfaces/order.js';
   styleUrl: './orders.component.scss'
 })
 export class OrdersComponent implements OnInit {
-  orderState: string = 'En espera';
   listOrders: any[] = [];
   p: number = 1;
   collection: any[] = this.listOrders;
@@ -45,10 +44,28 @@ export class OrdersComponent implements OnInit {
   }
 
   changeState(id: number, order: Order) {
+    if (order.estado = 'En proceso') {
+      order.estado = 'Entregado';
+    }
     this._ordersService.updateOrder(id, order).subscribe({
       next: () => {
         this.getOrders();
         this.toastr.success('Estado de pedido actualizado correctamente', 'Pedido actualizado');
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastr.error(error.error.message, 'Error');
+      }
+    })
+  }
+
+  changeStatePayment(id: number, order: Order) {
+    if (order.estado_pago = 'No pago') {
+      order.estado_pago = 'Pagado';
+    }
+    this._ordersService.updateOrder(id, order).subscribe({
+      next: () => {
+        this.getOrders();
+        this.toastr.success('Estado de pago actualizado correctamente', 'Pedido actualizado');
       },
       error: (error: HttpErrorResponse) => {
         this.toastr.error(error.error.message, 'Error');
@@ -77,5 +94,5 @@ export class OrdersComponent implements OnInit {
         }
       });
     }
-  } 
+  }
 }
