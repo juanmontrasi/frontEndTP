@@ -10,7 +10,7 @@ La aplicacion fue realizada con [Angular V18](https://v18.angular.dev/installati
 * 49416 - Chamas Agustina
 
 ### Demostración 
-Link al video de demostración: [Demo](https://youtu.be/7H-OFt2N_9g)
+Link al video de demostración: [Demo](https://youtu.be/bnXax-70ZoM)
 
 ### Repositorios
 * [frontend app] https://github.com/juanmontrasi/frontEndTP
@@ -31,7 +31,7 @@ git clone https://github.com/juanmontrasi/backEndTP.git
   ```
   npm install
   ```
-- Configura la base de datos. Actualiza los datos en el archivo `.env` entre comillas simples
+- Configura la base de datos. Cree un archivo env y agregue los siguiente datos los datos en el archivo `.env` entre comillas simples
   ```
   BDUSERNAME=tu_usuario_de_base_de_datos
   BDPASSWORD=tu_clave_de_base_de_datos
@@ -61,7 +61,7 @@ git clone https://github.com/juanmontrasi/backEndTP.git
 # 4. Imagenes de productos
 Para agregar una imagen a un producto, esta deberá estar ubicada en la carpeta src\assets\products, y su nombre deberá ser ingresado en el campo "imagen" junto con su extensión.
 # 5. Checkout
-Cuando se complete el proceso de checkout, se enviará un correo electrónico con el recibo. Es fundamental asegurarse de que la dirección de correo ingresada al registrar un usuario sea válida y esté en funcionamiento.
+Para el procedimiento de checkout por medio de mercado pago dentro del siguiente documento se encuentra una visa debito de prueba [targeta de prueba](https://docs.google.com/document/d/1LozuB7iaQNl1TzEHmNRR3ieQEq9hukbALOAbF-66tOM/edit?usp=sharing)
 ## Tema
 Este proyecto tiene como objetivo desarrollar una tienda en línea especializada en componentes de computadora, con funcionalidades como un carrito de compras y un sistema de búsqueda avanzada que permite aplicar múltiples filtros. Además, incluirá una sección de administración para gestionar eficientemente usuarios, productos y pedidos. Por último, se implementará un sistema de inicio de sesión (LogIn) que diferenciará entre dos tipos de usuarios: clientes y administradores, garantizando un manejo adecuado de permisos y accesos.
 
