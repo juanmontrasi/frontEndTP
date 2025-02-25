@@ -23,27 +23,23 @@ export class OrdersService {
       total: total,
       id_cliente: id
     }
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(this.myAppUrl + this.myApiUrl, order, { headers });
+    return this.http.post(this.myAppUrl + this.myApiUrl, order);
   }
 
   getOrders(): Observable<Order[]> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Order[]>(this.myAppUrl + this.myApiUrl, {headers});
+    return this.http.get<Order[]>(this.myAppUrl + this.myApiUrl);
   }
 
   deleteOrder(id: number): Observable<void> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`, { headers });
+    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`);
   }
 
   updateOrder(id_pedidos: number, order: Order): Observable<void> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id_pedidos}`, order, { headers });
+    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id_pedidos}`, order);
+  }
+
+  getOrdersQuantity(): Observable<any> {
+    return this.http.get<any>(this.myAppUrl + this.myApiUrl + '/quantity');
   }
 }
 

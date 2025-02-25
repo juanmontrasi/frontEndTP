@@ -19,16 +19,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class ProductsComponent implements OnInit {
   listProducts: any[] = [];
-  // toastr: any;
-  // private _productService: any;
   displayColumns: string[] = ['id', 'nombre', 'descripcion', 'stock', 'precio', 'imagen'];
-  //  dataSource = algo del back?;
-
   p: number = 1;
   collection: any[] = this.listProducts;
   searchInput = { nombre_producto: '' };
 
-  constructor(private router: Router, private _productService: ProductService, private toastr: ToastrService) { }
+  constructor(private _productService: ProductService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -45,13 +41,13 @@ export class ProductsComponent implements OnInit {
       this._productService.deleteProduct(id).subscribe({
         next: () => {
           this.getProducts();
-        this.toastr.warning('Producto eliminado correctamente', 'Producto eliminado');
-      },
-      error: (error: HttpErrorResponse) => {
-        this.toastr.error(error.error.message, 'Error');
-      }
+          this.toastr.warning('Producto eliminado correctamente', 'Producto eliminado');
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(error.error.message, 'Error');
+        }
       });
     }
-    
+
   }
 }

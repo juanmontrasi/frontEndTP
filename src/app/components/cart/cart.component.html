@@ -32,7 +32,7 @@
           <h5 class="card-title">Resumen del Pedido</h5>
           <p class="card-text">Total de productos: {{cartProductsRepeated.length}}</p>
           <p class="card-text"><strong>Total:</strong> {{getTotal()}} </p>
-          <button type="button" class="btn btn-primary" (click)="Proceed()">Realizar pedido</button>
+          <button type="button" class="btn btn-primary" (click)="proceed()">Realizar pedido</button>
 
         </div>
       </div>
@@ -40,7 +40,7 @@
   </div>
   <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff"
     type="square-jelly-box" [fullScreen]="true">
-    <p style="color: white"> Procesando el pedido </p>
+    <p class="orderSpinner"> Procesando el pedido </p>
   </ngx-spinner>
 
 </div>

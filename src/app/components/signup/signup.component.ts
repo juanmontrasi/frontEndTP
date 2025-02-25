@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private _userService: UserService,
     private router: Router,
-    private aRouter: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute) {
     this.formClient = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
       phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       address: ['', Validators.required]
     });
-    this.id = Number(aRouter.snapshot.paramMap.get('id'));
+    this.id = Number(activatedRoute.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {

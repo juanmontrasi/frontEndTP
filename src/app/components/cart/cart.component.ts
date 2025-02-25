@@ -37,7 +37,6 @@ export class CartComponent implements OnInit {
     private _productService: ProductService,
     private _cartService: CartService,
     private _ordersService: OrdersService,
-    private router: Router,
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -45,7 +44,7 @@ export class CartComponent implements OnInit {
     this.setCartProducts();
   }
 
-  Proceed() {
+  proceed() {
     if (!this.userService.isAuthenticated()) {
       this.toastr.error('Inicie sesión para continuar', 'Error');
       return;
@@ -89,7 +88,6 @@ export class CartComponent implements OnInit {
           )
           .subscribe({
             next: (response) => {
-              console.log('producto agregado')
             },
             error: (err) => {
               this.toastr.error(err.error.message, 'Error');
@@ -113,15 +111,13 @@ export class CartComponent implements OnInit {
   }
 
   finalizeOrder(order: Order) {
-    this._checkoutService.sendEmail(order).subscribe({
-      next: () => {
+    this._checkoutService.mercadoPagoApi(order).subscribe({
+      next: (data) => {
         localStorage.removeItem('cart');
         this.cartProducts = [];
-        setTimeout(() => {
-          this.spinner.hide();
-          this.toastr.success('Estamos procesando tu pedido', 'Pedido Creado', { timeOut: 10000 });
-          this.router.navigate(['/home']);
-        }, 5000);
+        this.spinner.hide();
+        window.location.href = data.url;
+
       },
       error: (err: HttpErrorResponse) => {
         this.toastr.error(err.error.message, 'Error');

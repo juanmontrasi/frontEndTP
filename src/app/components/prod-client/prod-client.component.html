@@ -8,8 +8,7 @@
     <form class="d-flex" role="search" [formGroup]="formSearch" (ngSubmit)="getProdByName()">
       <input class="form-control me-2" placeholder="Buscar" aria-label="Search" formControlName="productName">
       <button class="btn btn-primary" type="submit">Buscar</button>
-      <button class="btn btn-outline-secondary" type="button" style="margin-left: 9px;"
-        (click)="getProducts()">Limpiar</button>
+      <button id="btn-clean" class="btn btn-outline-secondary" type="button" (click)="getProducts()">Limpiar</button>
     </form>
   </div>
 

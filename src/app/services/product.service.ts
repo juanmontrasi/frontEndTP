@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Product } from '../interfaces/product';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +18,7 @@ export class ProductService {
   }
 
   createProduct(product: Product): Observable<any> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(this.myAppUrl + this.myApiUrl, product, {headers});
+    return this.http.post(this.myAppUrl + this.myApiUrl, product);
   }
 
   getProductsByName(nombre: string): Observable<Product[]> {
@@ -33,9 +30,7 @@ export class ProductService {
   }
 
   deleteProduct(id: number): Observable<void> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`, {headers})
+    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`)
   }
 
   getProductById(id: number): Observable<any> {
@@ -43,10 +38,12 @@ export class ProductService {
   }
 
   updateProduct(id: number, product: Product): Observable<void> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, product, {headers})
+    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, product)
   }
 
-  
+  getProductQuantity(): Observable<number> {
+    return this.http.get<number>(this.myAppUrl + this.myApiUrl + '/quantity/stock')
+  }
+
+
 }

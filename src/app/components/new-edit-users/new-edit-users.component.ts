@@ -21,7 +21,7 @@ export class NewEditUsersComponent implements OnInit {
     private fb: FormBuilder,
     private _userService: UserService,
     private router: Router,
-    private aRouter: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
     this.formUser = this.fb.group({
       userName: ['', Validators.required],
@@ -33,7 +33,7 @@ export class NewEditUsersComponent implements OnInit {
       phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       address: ['', Validators.required]
     });
-    this.id = Number(aRouter.snapshot.paramMap.get('id'));
+    this.id = Number(activatedRoute.snapshot.paramMap.get('id'));
   }
   ngOnInit(): void {
     if (this.id != 0) {

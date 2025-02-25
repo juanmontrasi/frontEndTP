@@ -4,7 +4,7 @@
     <!-- <button type="submit" class="btn btn-primary" routerLink="/newProduct">Agregar
       Pedido</button> -->
   </div>
-  <nav class="d-flex" style="margin-bottom: 10px;">
+  <nav class="d-flex">
     <div class="container-fluid">
       <input class="form-control " placeholder="Search" aria-label="Busqueda" [(ngModel)]="searchInput.fecha_pedido"
         placeholder="Busqueda por Fecha">
@@ -35,8 +35,7 @@
         <td>{{order.Usuario.email}}</td>
         <td>{{listProducts(order.productos_pedidos)}}</td>
         <td>
-          <button (click)="changeStatePayment(order.id_pedidos, order)" type="button"
-            [ngClass]="order.estado_pago === 'No pago' ? 'btn btn-danger ms-2' : 'btn btn-success ms-2'">{{order.estado_pago}}</button>
+          {{order.estado_pago}}
         </td>
         <td>
           <button (click)="changeState(order.id_pedidos, order)" type="button"

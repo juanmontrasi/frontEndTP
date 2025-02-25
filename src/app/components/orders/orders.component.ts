@@ -58,21 +58,6 @@ export class OrdersComponent implements OnInit {
     })
   }
 
-  changeStatePayment(id: number, order: Order) {
-    if (order.estado_pago = 'No pago') {
-      order.estado_pago = 'Pagado';
-    }
-    this._ordersService.updateOrder(id, order).subscribe({
-      next: () => {
-        this.getOrders();
-        this.toastr.success('Estado de pago actualizado correctamente', 'Pedido actualizado');
-      },
-      error: (error: HttpErrorResponse) => {
-        this.toastr.error(error.error.message, 'Error');
-      }
-    })
-  }
-
   listProducts(productos_pedidos: any[]) {
     let products: any[] = [];
     productos_pedidos.forEach((product_order: any, index) => {

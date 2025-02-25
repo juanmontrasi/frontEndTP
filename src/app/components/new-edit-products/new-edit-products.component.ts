@@ -21,7 +21,7 @@ export class NewEditProductsComponent implements OnInit {
     private fb: FormBuilder,
     private _productService: ProductService,
     private router: Router,
-    private aRouter: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
     this.formProduct = this.fb.group({
       productName: ['', Validators.required],
@@ -30,7 +30,7 @@ export class NewEditProductsComponent implements OnInit {
       price: [0, [Validators.required, Validators.min(0)]],
       image: ['', Validators.required]
     });
-    this.id = Number(aRouter.snapshot.paramMap.get('id'));
+    this.id = Number(activatedRoute.snapshot.paramMap.get('id'));
   }
   ngOnInit(): void {
     if (this.id != 0) {

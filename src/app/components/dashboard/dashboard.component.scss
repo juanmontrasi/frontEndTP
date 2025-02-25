@@ -1,0 +1,28 @@
+.container {
+    min-height: 100vh;
+    margin-bottom: 40px;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.container-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin: 10px;
+}
+
+
+.container-graphic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}

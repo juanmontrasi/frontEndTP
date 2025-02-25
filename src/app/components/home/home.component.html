@@ -2,12 +2,11 @@
 
 
 
-  <div class="container-nosotros">
-    <div class="card text-center mb-3"
-      style="width: 18rem; border: 1px solid #ccc; transition: transform 0.2s; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-      <div class="card-body" style="background-color: #f9f9f9; padding: 20px;">
-        <h5 class="card-title" style="font-weight: bold; color: #007bff;">¿Quiénes somos?</h5>
-        <p class="card-text" style="color: #333; line-height: 1.6;">
+  <div class="container-us">
+    <div class="card text-center mb-3">
+      <div class="card-body">
+        <h5 class="card-title">¿Quiénes somos?</h5>
+        <p class="card-text">
           En Compra Gamer, somos un equipo apasionado de entusiastas de la tecnología dedicados a ofrecer lo mejor en
           productos de computación. Nos enorgullecemos de ofrecer productos de marcas reconocidas, garantizando la
           satisfacción y confianza de nuestros usuarios. ¡Únete a nuestra comunidad y descubre un mundo de
@@ -50,10 +49,10 @@
 
 
 
-    <div class="card" style="width: 18rem;" *ngFor="let product of listProd">
+    <div class="card" *ngFor="let product of listProd">
       <img [src]="'assets/products/' + product.imagen" class="card-img-top" [alt]="'assets/products/' + product.imagen">
       <div class="card-body">
-        <h5 class="card-title">{{ product.nombre_producto }}</h5>
+        <h5 class="card-title-product">{{ product.nombre_producto }}</h5>
         <p class="card-text">{{ product.desc_producto }}</p>
         <p class="card-text"><strong>Precio:</strong> {{ product.precio | currency:'USD' }}</p>
         <a (click)="addProdToCart(product)" class="btn btn-primary">Agregar al Carrito</a>

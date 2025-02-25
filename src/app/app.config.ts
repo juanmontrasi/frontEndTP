@@ -2,13 +2,12 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { addTokenInterceptor } from './utils/add-token.interceptor.js';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { authenticateInterceptor } from './interceptors/authenticate.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,9 +19,9 @@ export const appConfig: ApplicationConfig = {
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
-    }),
-    provideHttpClient(withInterceptors([addTokenInterceptor])), provideAnimationsAsync(), provideAnimationsAsync(),
+    }), provideAnimationsAsync(), provideAnimationsAsync(),
     importProvidersFrom(NgxSpinnerModule.forRoot()),
-    importProvidersFrom(BrowserAnimationsModule)
+    importProvidersFrom(BrowserAnimationsModule),
+    provideHttpClient(withInterceptors([authenticateInterceptor])),
   ]
 };

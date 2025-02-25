@@ -18,9 +18,11 @@ export class OrdersProductsService {
   }
 
   createOrderProduct(orderProduct: OrderProduct): Observable<any> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(this.myAppUrl + this.myApiUrl, orderProduct, { headers });
+    return this.http.post(this.myAppUrl + this.myApiUrl, orderProduct);
+  }
+
+  getProductsQuantity(): Observable<any> {
+    return this.http.get<any>(this.myAppUrl + this.myApiUrl);
   }
 
 }

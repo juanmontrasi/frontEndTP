@@ -28,15 +28,11 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<User[]>(this.myAppUrl + this.myApiUrl, { headers });
+    return this.http.get<User[]>(this.myAppUrl + this.myApiUrl);
   }
 
   deleteUser(id: number): Observable<void> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`, { headers });
+    return this.http.delete<void>(this.myAppUrl + this.myApiUrl + `/${id}`);
   }
 
   getUserById(id: number): Observable<any> {
@@ -44,9 +40,7 @@ export class UserService {
   }
 
   updateUser(id: number, user: User): Observable<void> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, user, { headers });
+    return this.http.patch<void>(this.myAppUrl + this.myApiUrl + `/${id}`, user);
   }
 
 
@@ -106,12 +100,9 @@ export class UserService {
     return !!sessionStorage.getItem('token');
   }
 
-  msjError(event: HttpErrorResponse) {
-    if (event.error.msg) {
-      this.toastr.error(event.error.msg, 'Error!');
-    } else {
-      this.toastr.error('El nombre de usuario o el mail ya existen', 'Error!');
-    }
+  getClientsQuantity(): Observable<number> {
+    return this.http.get<number>(this.myAppUrl + this.myApiUrl + '/clients/quantity');
   }
+
 }
 

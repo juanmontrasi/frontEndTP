@@ -1,19 +1,25 @@
 <div class="container">
-  <form class="form-login">
+  <form class="form-login" [formGroup]="formLogin">
     <div class="form-floating mb-3">
       <h2>Ingreso</h2>
     </div>
     <div class="col-12">
       <label for="inputUsuario" class="form-label">Nombre de usuario</label>
-      <input type="text" [(ngModel)]="userName" class="form-control" [ngModelOptions]="{standalone: true}">
+      <input type="text" class="form-control" formControlName="username">
+      <span *ngIf="formLogin.get('username')?.hasError('required') && formLogin.get('username')?.touched">
+        El campo Nombre de Usuario <strong>es requerido</strong>
+      </span>
     </div>
     <div class="col-12">
-      <label for=" inputPassword4" class="form-label">Contraseña</label>
-      <input type="password" [(ngModel)]="password" class="form-control" [ngModelOptions]="{standalone: true}">
+      <label for="inputPassword" class="form-label">Contraseña</label>
+      <input type="password" class="form-control" formControlName="password">
+      <span *ngIf="formLogin.get('password')?.hasError('required') && formLogin.get('password')?.touched">
+        El campo Contraseña <strong>es requerido</strong>
+      </span>
     </div>
     <div class="mb-3" class="acceso-registro">
       <p>No tienes cuenta? <a routerLink="/signup" href="/signup">Registrate</a></p>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="login()">Ingresar</button>
+    <button type="submit" class="btn btn-primary" [disabled]="formLogin.invalid" (click)="login()">Ingresar</button>
   </form>
 </div>
